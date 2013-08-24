@@ -402,6 +402,22 @@
         _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_backButton setFrame:CGRectMake(0.0, 0.0, 44.0, 44.0)];
         
+        UIGraphicsBeginImageContextWithOptions(CGSizeMake(44.0, 44.0), normal, 0);
+        
+        UIBezierPath *chevron = [UIBezierPath bezierPath];
+        [chevron moveToPoint:CGPointMake(32.0, CGRectGetHeight(_backButton.bounds) - 8.0)];
+        [chevron addLineToPoint:CGPointMake(16.0, CGRectGetHeight(_backButton.bounds) / 2.0)];
+        [chevron addLineToPoint:CGPointMake(32.0, 8.0)];
+        
+        [[UIColor whiteColor] setStroke];
+        
+        CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+        CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 128.0);
+        
+        [chevron stroke];
+        
+        [_backButton setImage:UIGraphicsGetImageFromCurrentImageContext() forState:UIControlStateNormal];
+        
         [_backButton setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
         
         [_backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];

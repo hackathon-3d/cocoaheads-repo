@@ -24,9 +24,6 @@
 //    [self.window setRootViewController:[[GridViewController alloc] init]];
     [self.window setRootViewController:[[MatrixViewController alloc] init]];
     
-    [self.window setRootViewController:[[GridViewController alloc] init]];
-//    [self.window setRootViewController:[[MatrixViewController alloc] init]];
-    
     return YES;
 }
 
