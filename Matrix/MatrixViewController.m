@@ -95,7 +95,7 @@
     
     [self backButton];
     
-    [self.titleLabel setText:@"S&P Global Index"];
+    [self.titleLabel setText:self.stockIndex.title];
     
     [self setupYears];
 //    [self setupData];
