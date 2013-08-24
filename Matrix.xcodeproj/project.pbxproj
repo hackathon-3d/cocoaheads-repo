@@ -30,6 +30,8 @@
 		EFA7FB0517C88AB500B8637E /* MatrixCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA7FB0417C88AB500B8637E /* MatrixCollectionViewLayout.m */; };
 		EFA7FB0817C894E600B8637E /* LabelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA7FB0717C894E600B8637E /* LabelCollectionViewCell.m */; };
 		EFA7FB0A17C8BA7A00B8637E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA7FB0917C8BA7A00B8637E /* QuartzCore.framework */; };
+		EFF8536517C91C0700CA9767 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = EFF8536417C91C0700CA9767 /* Icon-72.png */; };
+		EFF8536717C91C0F00CA9767 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EFF8536617C91C0F00CA9767 /* Icon-72@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +75,8 @@
 		EFA7FB0617C894E600B8637E /* LabelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelCollectionViewCell.h; sourceTree = "<group>"; };
 		EFA7FB0717C894E600B8637E /* LabelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelCollectionViewCell.m; sourceTree = "<group>"; };
 		EFA7FB0917C8BA7A00B8637E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		EFF8536417C91C0700CA9767 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		EFF8536617C91C0F00CA9767 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +122,8 @@
 		EFA7FAD417C847B900B8637E = {
 			isa = PBXGroup;
 			children = (
+				EFF8536617C91C0F00CA9767 /* Icon-72@2x.png */,
+				EFF8536417C91C0700CA9767 /* Icon-72.png */,
 				8981B59417C87790008E20BE /* QuartzCore.framework */,
 				EFA7FAE617C847B900B8637E /* Matrix */,
 				EFA7FADF17C847B900B8637E /* Frameworks */,
@@ -240,6 +246,8 @@
 				EFA7FAF517C847B900B8637E /* Default@2x.png in Resources */,
 				EFA7FAF717C847B900B8637E /* Default-568h@2x.png in Resources */,
 				64824A0317C8B5BA0066DC6B /* StockIndexView.xib in Resources */,
+				EFF8536517C91C0700CA9767 /* Icon-72.png in Resources */,
+				EFF8536717C91C0F00CA9767 /* Icon-72@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
