@@ -13,7 +13,7 @@
 
 
 
-@interface GridViewController (){
+@interface GridViewController ()   <SectionButtonTappedDelegate>{
     CGPoint _oldGridViewCenter;
     MatrixViewController *_matrixViewController;
     UIImage *_matrixViewControllerScreenShot;
@@ -60,12 +60,17 @@
     //NSLog( [NSString stringWithFormat:@"%f,%f", viewWidth, viewHeight]);
     
     self.gridView = [[GridView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
+    self.gridView.delegate = self;
     [self.gridView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
     //imageView.alpha = .5;
 //    [self.gridView addSubview:imageView];
     [self.view addSubview:self.gridView];
     
     
+}
+-(void)sectionButtonTapped:(CGPoint)point
+{
+    [self zoomInToSectionContainingPoint:point];
 }
 
 /*

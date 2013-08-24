@@ -9,6 +9,7 @@
 #import "GridView.h"
 #import "StockIndexView.h"
 #import "StockIndex+SampleData.h"
+#import "StockViewButton.h"
 
 #define SECTION_COL_TOTAL 3
 #define SECTION_ROW_TOTAL 3
@@ -37,15 +38,7 @@
     
     int sectionWidth = (int)self.frame.size.width/SECTION_COL_TOTAL;
     int sectionHeight = (int)self.frame.size.height/SECTION_ROW_TOTAL;
-    NSArray *colorList = @[[UIColor redColor],
-                           [UIColor greenColor],
-                           [UIColor blackColor],
-                           [UIColor blueColor],
-                           [UIColor grayColor],
-                           [UIColor yellowColor],
-                           [UIColor purpleColor],
-                           [UIColor redColor],
-                           [UIColor greenColor]];
+    
                            
     self.chartList = [@[]mutableCopy];
     for (int j = 0; j < SECTION_ROW_TOTAL; j++) {
@@ -56,7 +49,7 @@
                                                                             frame:CGRectMake(i*sectionWidth, j*sectionHeight, sectionWidth, sectionHeight)];
             [stockView setStockIndex:[[StockIndex sampleData] objectAtIndex:index]];
             self.chartList[index] = stockView;
-            [self addSubview: stockView];
+            //[self addSubview: stockView];
         }
     }
 }
@@ -66,15 +59,43 @@
     int sectionWidth = (int)self.frame.size.width/SECTION_COL_TOTAL;
     int sectionHeight = (int)self.frame.size.height/SECTION_ROW_TOTAL;
     
+    
+    NSArray *colorList = @[[UIColor redColor],
+                           [UIColor greenColor],
+                           [UIColor blackColor],
+                           [UIColor blueColor],
+                           [UIColor grayColor],
+                           [UIColor yellowColor],
+                           [UIColor purpleColor],
+                           [UIColor redColor],
+                           [UIColor greenColor]];
+    
+    
+    
     for (int j = 0; j < SECTION_ROW_TOTAL; j++) {
         for (int i = 0; i < SECTION_COL_TOTAL; i++) {
             int index = j*SECTION_COL_TOTAL+i;
-            UIView *chart = self.chartList[index];
-            chart.frame = CGRectMake(i*sectionWidth, j*sectionHeight, sectionWidth, sectionHeight);
+            UIView *stockView = self.chartList[index];
+            stockView.frame = CGRectMake(0, 0, sectionWidth, sectionHeight);
+            [stockView setUserInteractionEnabled:NO];
+            
+            UIButton *button = [[StockViewButton alloc]initWithFrame:CGRectMake(i*sectionWidth, j*sectionHeight, sectionWidth, sectionHeight)];
+            [button addSubview:stockView];
+            [button addTarget:self action:@selector(onSectionButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:button];
+            stockView.backgroundColor = [UIColor clearColor];
+            //stockView.alpha = .7;
+            //button.backgroundColor = colorList[index];
         }
     }
 }
 
+-(void)onSectionButtonTapped:(id)sender
+{
+    
+    CGPoint point = [(UIButton *)sender center];
+    [self.delegate sectionButtonTapped:point];
+}
 -(int)getSectionIndexFromPoint:(CGPoint)point
 {
     int sectionWidth = (int)self.frame.size.width/SECTION_COL_TOTAL;
