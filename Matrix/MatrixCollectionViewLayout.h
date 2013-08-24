@@ -16,4 +16,6 @@
 @property (nonatomic, readwrite) NSInteger numberOfRows;
 @property (nonatomic, readwrite) NSInteger numberOfColumns;
 
+@property (nonatomic, readwrite) CGPoint touchPoint;
+
 @end

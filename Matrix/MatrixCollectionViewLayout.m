@@ -40,11 +40,42 @@
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
     NSMutableArray *layoutAttributes = [NSMutableArray array];
-        
+    
+    CGRect hotspot = CGRectMake(self.touchPoint.x - (self.itemSize.width * 1.1), self.touchPoint.y - (self.itemSize.height * 1.1), self.itemSize.width * 3, self.itemSize.height * 3);
+    
+    CGRect outerSpot = CGRectInset(hotspot, -(self.itemSize.width * 2.0), -(self.itemSize.height * 2.0));
+    
     for (UICollectionViewLayoutAttributes *attributes in cachedLayoutAttributes) {
+        attributes.zIndex = 0;
+        
         if (CGRectContainsRect(rect, attributes.frame)) {
+//            float distance = sqrtf(powf(2.0, (attributes.center.x - self.touchPoint.x)) + powf(2.0, (attributes.center.y - self.touchPoint.y)));
+//            distance = -distance + 2.0;
+//            
+//            float normal = distance;
+//            
+//            float scale = MAX(normal, 1.0);
+//            scale = MIN(scale, 2.0);
+//            
+//            attributes.transform3D = CATransform3DMakeScale(scale, scale, scale);
+            
             [layoutAttributes addObject:attributes];
         }
+    
+//        if (CGRectContainsRect(outerSpot, attributes.frame)) {
+//            attributes.transform3D = CATransform3DMakeScale(1.2, 1.2, 1.2);
+//            attributes.zIndex += 1;
+//        }
+//        
+//        if (CGRectContainsRect(hotspot, attributes.frame)) {
+//            attributes.transform3D = CATransform3DMakeScale(1.35, 1.35, 1.35);
+//            attributes.zIndex += 1;
+//        }
+//        
+//        if (CGRectContainsPoint(attributes.frame, self.touchPoint)) {
+//            attributes.transform3D = CATransform3DMakeScale(1.5, 1.5, 1.5);
+//            attributes.zIndex = 99;
+//        }
     }
     
     return layoutAttributes;
@@ -60,6 +91,17 @@
     return CGSizeMake((self.itemSize.width + self.itemSpacing.width) * self.numberOfColumns,
                       (self.itemSize.height + self.itemSpacing.height) * self.numberOfRows);
 }
+
+#pragma mark - Hot Spot Maginifier
+
+- (void)setTouchPoint:(CGPoint)touchPoint
+{
+    _touchPoint = touchPoint;
+    
+    [self invalidateLayout];
+}
+
+#pragma mark - Properties
 
 - (void)setItemSize:(CGSize)itemSize
 {

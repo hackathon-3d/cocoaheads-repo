@@ -24,6 +24,7 @@
 		EFA7FB0217C847D600B8637E /* MatrixViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA7FB0117C847D600B8637E /* MatrixViewController.m */; };
 		EFA7FB0517C88AB500B8637E /* MatrixCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA7FB0417C88AB500B8637E /* MatrixCollectionViewLayout.m */; };
 		EFA7FB0817C894E600B8637E /* LabelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA7FB0717C894E600B8637E /* LabelCollectionViewCell.m */; };
+		EFA7FB0A17C8BA7A00B8637E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA7FB0917C8BA7A00B8637E /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		EFA7FB0417C88AB500B8637E /* MatrixCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatrixCollectionViewLayout.m; sourceTree = "<group>"; };
 		EFA7FB0617C894E600B8637E /* LabelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelCollectionViewCell.h; sourceTree = "<group>"; };
 		EFA7FB0717C894E600B8637E /* LabelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelCollectionViewCell.m; sourceTree = "<group>"; };
+		EFA7FB0917C8BA7A00B8637E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EFA7FB0A17C8BA7A00B8637E /* QuartzCore.framework in Frameworks */,
 				EFA7FAE117C847B900B8637E /* UIKit.framework in Frameworks */,
 				EFA7FAE317C847B900B8637E /* Foundation.framework in Frameworks */,
 				EFA7FAE517C847B900B8637E /* CoreGraphics.framework in Frameworks */,
@@ -105,6 +108,7 @@
 		EFA7FADF17C847B900B8637E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EFA7FB0917C8BA7A00B8637E /* QuartzCore.framework */,
 				EFA7FAE017C847B900B8637E /* UIKit.framework */,
 				EFA7FAE217C847B900B8637E /* Foundation.framework */,
 				EFA7FAE417C847B900B8637E /* CoreGraphics.framework */,

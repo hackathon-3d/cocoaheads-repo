@@ -37,19 +37,19 @@
 @property (nonatomic, strong) MatrixCollectionViewLayout *layout;
 @end
 
-#define Padding (8.0)
+#define Padding (4.0)
 
 #define Header (44.0)
 
-#define VerticalGutter (44.0)
-#define HorizontalGutter (24.0)
+#define VerticalGutter (64.0)
+#define HorizontalGutter (32.0)
 
 #define ZoomMinimum (0.25)
 
-#define MinimumSize CGSizeMake(96.0, 48.0)
+#define MinimumSize CGSizeMake(64.0, 32.0)
 #define MaximumSize CGSizeMake(256.0, 128.0)
 
-#define DEBUG_FRAMES (1)
+#define DEBUG_FRAMES (0)
 
 @implementation MatrixViewController
 
@@ -96,6 +96,10 @@
 //    [self setupData];
     
     [self gridCollectionView];
+    
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+    [pan setMinimumNumberOfTouches:1];
+    [self.view addGestureRecognizer:pan];
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,6 +111,49 @@
 - (void)goBack:(id)sender
 {
     
+}
+
+- (void)handlePan:(UIPanGestureRecognizer *)gesture
+{
+    switch (gesture.state) {
+        case UIGestureRecognizerStateBegan:
+            
+            break;
+            
+        case UIGestureRecognizerStateChanged: {
+            
+            [self.layout setTouchPoint:[gesture locationInView:self.gridCollectionView]];
+            
+//            NSIndexPath *touchedIndexPath = [self.gridCollectionView indexPathForItemAtPoint:[gesture locationInView:self.gridCollectionView]];
+//            
+//            NSMutableArray *immediateIndexPaths = [NSMutableArray array];
+//            [immediateIndexPaths addObject:[NSIndexPath indexPathForItem:(touchedIndexPath.item - 1) inSection:0]];
+//            [immediateIndexPaths addObject:[NSIndexPath indexPathForItem:(touchedIndexPath.item + 1) inSection:0]];
+//            [immediateIndexPaths addObject:[NSIndexPath indexPathForItem:(touchedIndexPath.item - 1 - self.layout.numberOfRows) inSection:0]];
+//            [immediateIndexPaths addObject:[NSIndexPath indexPathForItem:(touchedIndexPath.item + 1 - self.layout.numberOfRows) inSection:0]];
+//            [immediateIndexPaths addObject:[NSIndexPath indexPathForItem:(touchedIndexPath.item - 1 + self.layout.numberOfRows) inSection:0]];
+//            [immediateIndexPaths addObject:[NSIndexPath indexPathForItem:(touchedIndexPath.item + 1 + self.layout.numberOfRows) inSection:0]];
+//            [immediateIndexPaths addObject:[NSIndexPath indexPathForItem:(touchedIndexPath.item - self.layout.numberOfRows) inSection:0]];
+//            [immediateIndexPaths addObject:[NSIndexPath indexPathForItem:(touchedIndexPath.item + self.layout.numberOfRows) inSection:0]];
+//            
+//            
+//            LabelCollectionViewCell *cell = (LabelCollectionViewCell *)[self.gridCollectionView cellForItemAtIndexPath:touchedIndexPath];
+//            [cell setPointSize:24.0];
+//            
+//            for (NSIndexPath *indexPath in immediateIndexPaths) {
+//                LabelCollectionViewCell *cell = (LabelCollectionViewCell *)[self.gridCollectionView cellForItemAtIndexPath:indexPath];
+//                [cell setPointSize:18.0];
+//            }
+            
+        }   break;
+            
+        case UIGestureRecognizerStateEnded:
+            
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - UICollectionView Datasource
@@ -328,28 +375,17 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView == self.gridScrollView) {
+    if (scrollView == self.gridCollectionView) {
         [self.verticalYearScrollView setContentOffset:CGPointMake(0.0, scrollView.contentOffset.y)];
         [self.horizontalYearScrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, 0.0)];
     }
     else if (scrollView == self.verticalYearScrollView) {
-//        [self.gridScrollView setContentOffset:CGPointMake(self.gridScrollView.contentOffset.x, self.verticalYearScrollView.contentOffset.y)];
         [self.gridCollectionView setContentOffset:CGPointMake(self.gridCollectionView.contentOffset.x, self.verticalYearScrollView.contentOffset.y)];
         
     }
     else if (scrollView == self.horizontalYearScrollView) {
-//        [self.gridScrollView setContentOffset:CGPointMake(self.horizontalYearScrollView.contentOffset.x, self.gridScrollView.contentOffset.y)];
         [self.gridCollectionView setContentOffset:CGPointMake(self.horizontalYearScrollView.contentOffset.x, self.gridCollectionView.contentOffset.y)];
     }
-}
-
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-{
-    if (scrollView == self.gridScrollView) {
-        return self.gridContainerView;
-    }
-    
-    return nil;
 }
 
 #pragma mark - Views
@@ -391,28 +427,6 @@
     return _titleLabel;
 }
 
-- (UIScrollView *)gridScrollView
-{
-    if (!_gridScrollView) {
-        _gridScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(VerticalGutter + Padding, Header + Padding, CGRectGetWidth(self.view.bounds) - (VerticalGutter * 2.0) - (Padding * 2.0), CGRectGetHeight(self.view.bounds) - Header - HorizontalGutter - (Padding * 2.0))];
-        [_gridScrollView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-        
-        [_gridScrollView setDelegate:self];
-        
-        [_gridScrollView setZoomScale:ZoomMinimum];
-        [_gridScrollView setMinimumZoomScale:ZoomMinimum];
-        [_gridScrollView setMaximumZoomScale:1.0];
-        
-        [_gridScrollView.panGestureRecognizer setMinimumNumberOfTouches:2];
-        
-        [_gridScrollView setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
-        
-//        [self.view addSubview:_gridScrollView];
-    }
-    
-    return _gridScrollView;
-}
-
 - (UICollectionView *)gridCollectionView
 {
     if (!_gridCollectionView) {
@@ -422,7 +436,7 @@
         [_gridCollectionView setDelegate:self];
         [_gridCollectionView setDataSource:self];
         
-//        [_gridCollectionView.panGestureRecognizer setMinimumNumberOfTouches:2];
+        [_gridCollectionView.panGestureRecognizer setMinimumNumberOfTouches:2];
         
         [_gridCollectionView setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
         
