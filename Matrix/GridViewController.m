@@ -15,6 +15,8 @@
 
 @interface GridViewController (){
     CGPoint _oldGridViewCenter;
+    MatrixViewController *_matrixViewController;
+    UIImage *_matrixViewControllerScreenShot;
 }
 @property (strong,nonatomic) GridView *gridView;
 @property (nonatomic) int selectedQuadrant;
@@ -64,6 +66,22 @@
     
     
 }
+
+/*
+// make image
+-(UIImage*) makeImage {
+    
+    UIGraphicsBeginImageContext(self.view.bounds.size);
+    
+    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return viewImage;
+}
+*/
+
 // tap gesture
 - (void)handleTap:(UITapGestureRecognizer *)sender
 {
@@ -75,66 +93,66 @@
     }
 }
 
-
-
-
+// zoom in
 - (void)zoomInToSectionContainingPoint:(CGPoint)point
 {
-    /*
-     self.gridView.frame = CGRectMake(0, 0, 20, 20);
-     CGPoint center = self.gridView.center;
-     [UIView animateWithDuration: 1.0f animations:^{
-     self.gridView.frame = CGRectMake(100, 100, 40, 40);
-     self.gridView.center = center;
-     }];
-     */
     UIView *myView = self.gridView;
     CGAffineTransform tr = CGAffineTransformScale(myView.transform, 3, 3);
-    //CGFloat h = myView.frame.size.height;
     
     //get section
     int sectionIndex = [self.gridView getSectionIndexFromPoint:point];
     CGPoint sectionUnitCenter = [self.gridView getSectionUnitCenter:sectionIndex];
-//    CGPoint newCenter = CGPointMake((myView.layer.anchorPoint.x-sectionUnitCenter.x)*self.view.frame.size.width, (myView.layer.anchorPoint.y-sectionUnitCenter.y)*self.view.frame.size.height);
     
     myView.layer.anchorPoint = sectionUnitCenter;
     myView.center = CGPointMake(CGRectGetWidth(myView.frame) * myView.layer.anchorPoint.x, CGRectGetHeight(myView.frame) * myView.layer.anchorPoint.y);
-    
-    //CGPoint sectionUnitCenterOffset = CGPointMake((sectionUnitCenter.x-.5), (sectionUnitCenter.y-.5));
-    
-//    NSLog( [NSString stringWithFormat:@"zoomInToSectionContainingPoint: sectionUnitCenter x:%f y:%f",sectionUnitCenter.x,sectionUnitCenter.y]);
-//    NSLog( [NSString stringWithFormat:@"zoomInToSectionContainingPoint: self.view.frame.size w:%f h:%f", self.view.frame.size.width,self.view.frame.size.height]);
-//    NSLog( [NSString stringWithFormat:@"zoomInToSectionContainingPoint: newCenter x:%f y:%f",newCenter.x,newCenter.y]);
-   // NSLog( [NSString stringWithFormat:@"zoomInToSectionContainingPoint: sectionUnitCenterOffset x:%f y:%f",sectionUnitCenterOffset.x,sectionUnitCenterOffset.y]);
-    
-//    NSLog( [NSString stringWithFormat:@"ZoomInToPoint: [%f,%f]", sectionUnitCenter.x, sectionUnitCenter.y]);
-    //myView.layer.anchorPoint = sectionUnitCenter;
-//    myView.center = newCenter;
-    
+
     float viewHalfWidth = self.view.bounds.size.width*.5;
     float viewHalfHeight = self.view.bounds.size.height*.5;
     CGPoint finalGridViewCenter = CGPointMake(viewHalfWidth, viewHalfHeight);
     _oldGridViewCenter = myView.center;
+    _matrixViewController = [[MatrixViewController alloc] init];
+    
+    // take snapshot
+    _matrixViewController.view.frame = self.view.bounds;
+    UIGraphicsBeginImageContext(self.view.bounds.size);
+    
+    [_matrixViewController.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage *matrixViewControllerSnapshot = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIImageView *matrixViewControllerSnapshotImageView = [[UIImageView alloc] initWithImage:matrixViewControllerSnapshot];
+    matrixViewControllerSnapshotImageView.alpha = 0;
+    matrixViewControllerSnapshotImageView.center = myView.center;
+    matrixViewControllerSnapshotImageView.transform = CGAffineTransformScale(matrixViewControllerSnapshotImageView.transform, .33, .33);
+    [self.view addSubview: matrixViewControllerSnapshotImageView];
+    
     [UIView animateWithDuration:1.0f delay:0 options:0 animations:^{
        
         myView.transform = tr;
         myView.center = finalGridViewCenter;
-        
+        myView.alpha = 0;
+        matrixViewControllerSnapshotImageView.center = myView.center;
+        matrixViewControllerSnapshotImageView.alpha = 1;
+        matrixViewControllerSnapshotImageView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
-        [self presentViewController:[[MatrixViewController alloc] init] animated:NO completion:nil];
+        myView.alpha = 0;
+        matrixViewControllerSnapshotImageView.alpha = 0;
+        [matrixViewControllerSnapshotImageView removeFromSuperview];
+        [self presentViewController:_matrixViewController animated:NO completion:nil];
+
+        
     }];
     
 }
 
-
+// zoom out
 - (void)zoomOutFromSelectedSection
 {
     UIView *myView = self.gridView;
-    //CGAffineTransform tr = CGAffineTransformScale(myView.transform, .33, .33);
     CGAffineTransform tr = CGAffineTransformIdentity;
-    //CGFloat h = myView.frame.size.height;
     CGPoint newCenter = CGPointMake(512.0, 374.0);
-     NSLog( [NSString stringWithFormat:@"zoomOutFromSectionContainingPoint: self.view.bounds.size w:%f h:%f", self.view.frame.size.width,self.view.frame.size.height]);
+    myView.alpha = 1;
     [UIView animateWithDuration:1.0f delay:0 options:0 animations:^{
         myView.transform = tr;
         myView.center = _oldGridViewCenter;
