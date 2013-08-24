@@ -16,11 +16,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
     
-//        [self.window setRootViewController:[[IndexPerformanceViewController alloc] init]];
     [self.window setRootViewController:[[GridViewController alloc] init]];
     
     return YES;
