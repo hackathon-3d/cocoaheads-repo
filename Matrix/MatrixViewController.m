@@ -14,6 +14,10 @@
 {
     NSMutableArray *visibleCells;
     NSMutableArray *dequeueCells;
+    
+    NSMutableArray *values;
+    float maxValue;
+    float minValue;
 }
 
 @property (nonatomic, readwrite) NSInteger startingYear;
@@ -56,6 +60,23 @@
         // Custom initialization
         self.startingYear = 1926;
         self.endingYear = 2013;
+        
+        NSInteger difference = self.endingYear - self.startingYear;
+        
+        
+        // Calculate values
+        values = [NSMutableArray array];
+        minValue = 0.0;
+        maxValue = 0.0;
+        
+        for (int i = 0; i < ((difference * difference) / 2); i++) {
+            float value = (arc4random_uniform(2000) / 100.0) - 10.0;
+            
+            minValue = MIN(minValue, value);
+            maxValue = MAX(maxValue, value);
+            
+            [values addObject:[NSNumber numberWithFloat:value]];
+        }
     }
     return self;
 }
@@ -101,10 +122,24 @@
 {
     LabelCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([LabelCollectionViewCell class]) forIndexPath:indexPath];
     
-    [cell.label setText:@"21.12"];//[NSString stringWithFormat:@"%.02f",(arc4random_uniform(100) / 100.0)]];
-    [cell setPointSize:floorf(MinimumSize.height * 0.75)];
+    float value = [values[indexPath.item] floatValue];
     
-    [cell setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
+    [cell.label setText:[NSString stringWithFormat:@"%.02f",value]];
+    [cell setPointSize:floorf(MinimumSize.height * 0.5)];
+    
+    UIColor *heatMapColor = [UIColor clearColor];
+    
+    if (value > 0.0) {
+        float percent = value/maxValue;
+        heatMapColor = [[UIColor greenColor] colorWithAlphaComponent:percent];
+        
+    } else if (value < 0.0) {
+        float percent = value/minValue;
+        heatMapColor = [[UIColor redColor] colorWithAlphaComponent:percent];
+        
+    }
+    
+    [cell setBackgroundColor:heatMapColor];
     
     return cell;
 }
