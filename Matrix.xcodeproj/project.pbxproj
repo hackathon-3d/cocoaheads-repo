@@ -103,8 +103,8 @@
 			children = (
 				642DDA8B17C8D0A700373BED /* StockIndexView.h */,
 				642DDA8C17C8D0A700373BED /* StockIndexView.m */,
-				642DDA8D17C8D0A700373BED /* StockPerformanceChartView.m */,
 				642DDA8717C8D09C00373BED /* StockPerformanceChartView.h */,
+				642DDA8D17C8D0A700373BED /* StockPerformanceChartView.m */,
 				642DDA8817C8D09C00373BED /* StockPerformanceViewController.h */,
 				642DDA8917C8D09C00373BED /* StockPerformanceViewController.m */,
 				64824A0217C8B5BA0066DC6B /* StockIndexView.xib */,
