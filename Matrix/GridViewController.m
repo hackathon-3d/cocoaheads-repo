@@ -13,9 +13,12 @@
 
 
 
-@interface GridViewController ()
+@interface GridViewController (){
+    CGPoint _oldGridViewCenter;
+}
 @property (strong,nonatomic) GridView *gridView;
 @property (nonatomic) int selectedQuadrant;
+
 @end
 
 
@@ -108,10 +111,14 @@
     //myView.layer.anchorPoint = sectionUnitCenter;
 //    myView.center = newCenter;
     
+    float viewHalfWidth = self.view.bounds.size.width*.5;
+    float viewHalfHeight = self.view.bounds.size.height*.5;
+    CGPoint finalGridViewCenter = CGPointMake(viewHalfWidth, viewHalfHeight);
+    _oldGridViewCenter = myView.center;
     [UIView animateWithDuration:1.0f delay:0 options:0 animations:^{
        
         myView.transform = tr;
-        
+        myView.center = finalGridViewCenter;
         
     } completion:^(BOOL finished) {
         [self presentViewController:[[MatrixViewController alloc] init] animated:NO completion:nil];
@@ -123,12 +130,14 @@
 - (void)zoomOutFromSelectedSection
 {
     UIView *myView = self.gridView;
-    CGAffineTransform tr = CGAffineTransformScale(myView.transform, .33, .33);
+    //CGAffineTransform tr = CGAffineTransformScale(myView.transform, .33, .33);
+    CGAffineTransform tr = CGAffineTransformIdentity;
     //CGFloat h = myView.frame.size.height;
     CGPoint newCenter = CGPointMake(512.0, 374.0);
      NSLog( [NSString stringWithFormat:@"zoomOutFromSectionContainingPoint: self.view.bounds.size w:%f h:%f", self.view.frame.size.width,self.view.frame.size.height]);
     [UIView animateWithDuration:1.0f delay:0 options:0 animations:^{
         myView.transform = tr;
+        myView.center = _oldGridViewCenter;
     } completion:^(BOOL finished) {
         myView.layer.anchorPoint = CGPointMake(0.5, 0.5);
         myView.center = newCenter;        
