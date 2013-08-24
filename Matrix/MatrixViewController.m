@@ -9,6 +9,10 @@
 #import "MatrixViewController.h"
 
 @interface MatrixViewController () <UIScrollViewDelegate>
+{
+    NSMutableArray *visibleCells;
+    NSMutableArray *dequeueCells;
+}
 
 @property (nonatomic, readwrite) NSInteger startingYear;
 @property (nonatomic, readwrite) NSInteger endingYear;
@@ -21,6 +25,7 @@
 @property (nonatomic, strong) UIScrollView *horizontalYearScrollView;
 
 @property (nonatomic, strong) UIScrollView *gridScrollView;
+@property (nonatomic, strong) UIView *gridContainerView;
 
 @end
 
@@ -31,7 +36,9 @@
 #define VerticalGutter (44.0)
 #define HorizontalGutter (24.0)
 
-#define DEBUG_FRAMES (0)
+#define ZoomMinimum (0.25)
+
+#define DEBUG_FRAMES (1)
 
 @implementation MatrixViewController
 
@@ -40,8 +47,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.startingYear = 1926;
-        self.endingYear = 2013;
+        self.startingYear = 1950;
+        self.endingYear = 2000;
     }
     return self;
 }
@@ -74,34 +81,138 @@
 
 #pragma mark - Data
 
-- (void)setupData
+- (UILabel *)createGridViewCell
 {
-    NSInteger difference = self.endingYear - self.startingYear;
+    CGFloat zoomMultiplier = 1.0 / ZoomMinimum;
     
-    CGFloat height = CGRectGetHeight(self.horizontalYearScrollView.bounds);
-    CGFloat width = CGRectGetWidth(self.verticalYearScrollView.bounds);
+    CGFloat height = CGRectGetHeight(self.horizontalYearScrollView.bounds) * zoomMultiplier;
+    CGFloat width = CGRectGetWidth(self.verticalYearScrollView.bounds) * zoomMultiplier;
+
     
-    // Top to Bottom
-    for (int x = 0; x < difference; x++) {
-        for (int y = 0; y < difference; y++) {
-            if (x <= y) {
-                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake((width * x), (height * y), width, height)];
-                
-                [label setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
-                
-                [label setTextAlignment:NSTextAlignmentCenter];
-                [label setTextColor:[UIColor whiteColor]];
-                
-                [label setFont:[UIFont boldSystemFontOfSize:14.0]];
-                
-                [label setText:[NSString stringWithFormat:@"%.02f",(arc4random_uniform(100) / 100.0)]];
-                
-                [self.gridScrollView addSubview:label];
-                
-                [self.gridScrollView setContentSize:CGSizeMake(CGRectGetMaxX(label.frame), CGRectGetMaxY(label.frame))];
+    // Create Cell
+    UILabel *cell = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, width, height)];
+    
+    [cell setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
+    
+    [cell setTextAlignment:NSTextAlignmentCenter];
+    [cell setTextColor:[UIColor whiteColor]];
+    
+    [cell setFont:[UIFont boldSystemFontOfSize:14.0 * zoomMultiplier]];
+    
+    [cell setText:[NSString stringWithFormat:@"%.02f",(arc4random_uniform(100) / 100.0)]];
+    
+    [self.gridContainerView addSubview:cell];
+    
+    
+    
+    return cell;
+}
+
+- (void)recycleGridCell:(UILabel *)cell
+{
+    [dequeueCells addObject:cell];
+    [visibleCells removeObject:cell];
+    
+    [cell setHidden:YES];
+
+}
+
+- (UILabel *)dequeueGridViewCell
+{
+    UILabel *cell = dequeueCells.lastObject;
+    
+    if (!cell) {
+        cell = [self createGridViewCell];
+    }
+    
+    [visibleCells addObject:cell];
+    [cell setHidden:NO];
+    
+    return cell;
+}
+
+- (void)loadGridCellForIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat zoomMultiplier = 1.0 / ZoomMinimum;
+    
+    CGFloat height = CGRectGetHeight(self.horizontalYearScrollView.bounds) * zoomMultiplier;
+    CGFloat width = CGRectGetWidth(self.verticalYearScrollView.bounds) * zoomMultiplier;
+    
+    
+    
+    UILabel *label = [self dequeueGridViewCell];
+    NSLog(@"loadGridCellForIndexPath: %@",label);
+    
+    [label setFrame:CGRectMake(((width + Padding) * indexPath.section), ((height + Padding) * indexPath.item), width, height)];
+}
+
+- (void)updateGridCells
+{
+    CGFloat zoomMultiplier = 1.0 / ZoomMinimum;
+    
+    CGFloat height = CGRectGetHeight(self.horizontalYearScrollView.bounds) * zoomMultiplier;
+    CGFloat width = CGRectGetWidth(self.verticalYearScrollView.bounds) * zoomMultiplier;
+
+    
+    CGRect visibleRect = (CGRect){self.gridScrollView.contentOffset, self.gridScrollView.bounds.size};
+    visibleRect.origin.x -= width;
+    visibleRect.origin.y -= height;
+    visibleRect.size.width += (width * 2.0);
+    visibleRect.size.height += (height * 2.0);
+    
+    // Recycle off screen cells
+    for (UILabel *label in visibleCells.copy) {
+        if (!CGRectContainsRect(visibleRect, label.frame)) {
+            [self recycleGridCell:label];
+        }
+    }
+    
+    // Calculator visible cells and load
+    int firstSection = CGRectGetMinX(visibleRect) / width;
+    int firstItem = CGRectGetMinY(visibleRect) / height;
+    int sections = CGRectGetWidth(visibleRect) / width;
+    int items = CGRectGetHeight(visibleRect) / height;
+    
+    for (int x = firstSection; x < (firstSection + sections); x++) {
+        for (int y = firstItem; y < (firstItem + items); y++) {
+            if (x >= 0 && y >= 0) {
+                [self loadGridCellForIndexPath:[NSIndexPath indexPathForItem:y inSection:x]];
             }
         }
     }
+    
+    
+}
+
+- (void)setupData
+{
+    visibleCells = [NSMutableArray array];
+    dequeueCells = [NSMutableArray array];
+    
+    NSInteger difference = self.endingYear - self.startingYear;
+    
+    CGFloat zoomMultiplier = 1.0 / ZoomMinimum;
+    
+    CGFloat height = CGRectGetHeight(self.horizontalYearScrollView.bounds) * zoomMultiplier;
+    CGFloat width = CGRectGetWidth(self.verticalYearScrollView.bounds) * zoomMultiplier;
+    
+    [self.gridScrollView setContentSize:CGSizeMake((width + Padding) * difference, (height + Padding) * difference)];
+    [self.gridContainerView setFrame:CGRectMake(0.0, 0.0, self.gridScrollView.contentSize.width, self.gridScrollView.contentSize.height)];
+    
+//    // Top to Bottom
+//    for (int x = 0; x < difference; x++) {
+//        for (int y = 0; y < difference; y++) {
+//            if (x <= y) {
+//                UILabel *label = [self createGridViewCell];
+//                
+//                [label setFrame:CGRectMake(((width + Padding) * x), ((height + Padding) * y), width, height)];
+//                
+//                [visibleCells addObject:label];
+//            }
+//        }
+//    }
+    
+    [self updateGridCells];
 
 }
 
@@ -117,11 +228,11 @@
     for (int i = 0; i < difference; i++) {
         int year = self.startingYear + i;
         
-        UILabel *verticalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, (height * i), width, height)];
+        UILabel *verticalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, ((height + Padding) * i), width, height)];
         
         [verticalLabel setText:[NSString stringWithFormat:@"%i",year]];
         
-        [verticalLabel setBackgroundColor:[UIColor clearColor]];
+        [verticalLabel setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
         
         [verticalLabel setTextColor:[UIColor whiteColor]];
         [verticalLabel setTextAlignment:NSTextAlignmentCenter];
@@ -131,11 +242,11 @@
         [self.verticalYearScrollView setContentSize:CGSizeMake(CGRectGetWidth(self.verticalYearScrollView.bounds), CGRectGetMaxY(verticalLabel.frame))];
         
         //
-        UILabel *horizontalLabel = [[UILabel alloc] initWithFrame:CGRectMake((width * i), 0.0, width, height)];
+        UILabel *horizontalLabel = [[UILabel alloc] initWithFrame:CGRectMake(((width + Padding) * i), 0.0, width, height)];
         
         [horizontalLabel setText:[NSString stringWithFormat:@"%i",year]];
         
-        [horizontalLabel setBackgroundColor:[UIColor clearColor]];
+        [horizontalLabel setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
         
         [horizontalLabel setTextColor:[UIColor whiteColor]];
         [horizontalLabel setTextAlignment:NSTextAlignmentCenter];
@@ -155,7 +266,6 @@
     if (scrollView == self.gridScrollView) {
         [self.verticalYearScrollView setContentOffset:CGPointMake(0.0, scrollView.contentOffset.y)];
         [self.horizontalYearScrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, 0.0)];
-        
     }
     else if (scrollView == self.verticalYearScrollView) {
         [self.gridScrollView setContentOffset:CGPointMake(self.gridScrollView.contentOffset.x, self.verticalYearScrollView.contentOffset.y)];
@@ -164,6 +274,15 @@
     else if (scrollView == self.horizontalYearScrollView) {
         [self.gridScrollView setContentOffset:CGPointMake(self.horizontalYearScrollView.contentOffset.x, self.gridScrollView.contentOffset.y)];
     }
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    if (scrollView == self.gridScrollView) {
+        return self.gridContainerView;
+    }
+    
+    return nil;
 }
 
 #pragma mark - Views
@@ -213,12 +332,29 @@
         
         [_gridScrollView setDelegate:self];
         
+        [_gridScrollView setZoomScale:ZoomMinimum];
+        [_gridScrollView setMinimumZoomScale:ZoomMinimum];
+        [_gridScrollView setMaximumZoomScale:1.0];
+        
+        [_gridScrollView.panGestureRecognizer setMinimumNumberOfTouches:2];
+        
         [_gridScrollView setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
         
         [self.view addSubview:_gridScrollView];
     }
     
     return _gridScrollView;
+}
+
+- (UIView *)gridContainerView
+{
+    if (!_gridContainerView) {
+        _gridContainerView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.gridScrollView.contentSize.width, self.gridScrollView.contentSize.height)];
+        
+        [self.gridScrollView addSubview:_gridContainerView];
+    }
+    
+    return _gridContainerView;
 }
 
 - (UIScrollView *)verticalYearScrollView
