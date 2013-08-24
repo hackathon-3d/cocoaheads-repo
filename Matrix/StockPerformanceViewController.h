@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface IndexPerformanceViewController : UIViewController
+@interface StockPerformanceViewController : UIViewController
 
 @end

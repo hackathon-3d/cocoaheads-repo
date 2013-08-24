@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		649EDCDB17C84A6B00959F54 /* IndexReturnChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 649EDCDA17C84A6B00959F54 /* IndexReturnChartView.m */; };
-		649EDCDD17C84A8900959F54 /* IndexReturnChartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 649EDCDC17C84A8900959F54 /* IndexReturnChartView.xib */; };
-		8981B59517C87790008E20BE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8981B59417C87790008E20BE /* QuartzCore.framework */; };
+		642DDA8A17C8D09C00373BED /* StockPerformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 642DDA8917C8D09C00373BED /* StockPerformanceViewController.m */; };
+		642DDA8E17C8D0A700373BED /* StockIndexView.m in Sources */ = {isa = PBXBuildFile; fileRef = 642DDA8C17C8D0A700373BED /* StockIndexView.m */; };
+		642DDA8F17C8D0A700373BED /* StockPerformanceChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 642DDA8D17C8D0A700373BED /* StockPerformanceChartView.m */; };
+		646D506F17C8920F0088E4ED /* StockIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 646D506E17C8920F0088E4ED /* StockIndex.m */; };
+		646D507217C892FA0088E4ED /* StockIndex+SampleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 646D507117C892FA0088E4ED /* StockIndex+SampleData.m */; };
+		64824A0317C8B5BA0066DC6B /* StockIndexView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64824A0217C8B5BA0066DC6B /* StockIndexView.xib */; };
 		8981B59817C88885008E20BE /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8981B59717C88885008E20BE /* GridView.m */; };
-		649EDCE017C8620600959F54 /* IndexPerformanceChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 649EDCDF17C8620600959F54 /* IndexPerformanceChartView.m */; };
-		649EDCE317C8684100959F54 /* IndexPerformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649EDCE217C8684100959F54 /* IndexPerformanceViewController.m */; };
 		EFA7FAE117C847B900B8637E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA7FAE017C847B900B8637E /* UIKit.framework */; };
 		EFA7FAE317C847B900B8637E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA7FAE217C847B900B8637E /* Foundation.framework */; };
 		EFA7FAE517C847B900B8637E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA7FAE417C847B900B8637E /* CoreGraphics.framework */; };
@@ -30,16 +31,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		649EDCD917C84A6B00959F54 /* IndexReturnChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexReturnChartView.h; sourceTree = "<group>"; };
-		649EDCDA17C84A6B00959F54 /* IndexReturnChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexReturnChartView.m; sourceTree = "<group>"; };
-		649EDCDC17C84A8900959F54 /* IndexReturnChartView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IndexReturnChartView.xib; sourceTree = "<group>"; };
+		642DDA8717C8D09C00373BED /* StockPerformanceChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPerformanceChartView.h; sourceTree = "<group>"; };
+		642DDA8817C8D09C00373BED /* StockPerformanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPerformanceViewController.h; sourceTree = "<group>"; };
+		642DDA8917C8D09C00373BED /* StockPerformanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPerformanceViewController.m; sourceTree = "<group>"; };
+		642DDA8B17C8D0A700373BED /* StockIndexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockIndexView.h; sourceTree = "<group>"; };
+		642DDA8C17C8D0A700373BED /* StockIndexView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockIndexView.m; sourceTree = "<group>"; };
+		642DDA8D17C8D0A700373BED /* StockPerformanceChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPerformanceChartView.m; sourceTree = "<group>"; };
+		646D506D17C8920F0088E4ED /* StockIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockIndex.h; sourceTree = "<group>"; };
+		646D506E17C8920F0088E4ED /* StockIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockIndex.m; sourceTree = "<group>"; };
+		646D507017C892FA0088E4ED /* StockIndex+SampleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StockIndex+SampleData.h"; sourceTree = "<group>"; };
+		646D507117C892FA0088E4ED /* StockIndex+SampleData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StockIndex+SampleData.m"; sourceTree = "<group>"; };
+		64824A0217C8B5BA0066DC6B /* StockIndexView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockIndexView.xib; sourceTree = "<group>"; };
 		8981B59417C87790008E20BE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8981B59617C88885008E20BE /* GridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridView.h; sourceTree = "<group>"; };
 		8981B59717C88885008E20BE /* GridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridView.m; sourceTree = "<group>"; };
-		649EDCDE17C8620600959F54 /* IndexPerformanceChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexPerformanceChartView.h; sourceTree = "<group>"; };
-		649EDCDF17C8620600959F54 /* IndexPerformanceChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexPerformanceChartView.m; sourceTree = "<group>"; };
-		649EDCE117C8684100959F54 /* IndexPerformanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexPerformanceViewController.h; sourceTree = "<group>"; };
-		649EDCE217C8684100959F54 /* IndexPerformanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexPerformanceViewController.m; sourceTree = "<group>"; };
 		EFA7FADD17C847B900B8637E /* Matrix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Matrix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA7FAE017C847B900B8637E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EFA7FAE217C847B900B8637E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -79,18 +84,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		649EDCD817C84A4700959F54 /* IndexReturnChart */ = {
+		646D506C17C891E50088E4ED /* StockIndex */ = {
 			isa = PBXGroup;
 			children = (
-				649EDCD917C84A6B00959F54 /* IndexReturnChartView.h */,
-				649EDCDA17C84A6B00959F54 /* IndexReturnChartView.m */,
-				649EDCDC17C84A8900959F54 /* IndexReturnChartView.xib */,
-				649EDCDE17C8620600959F54 /* IndexPerformanceChartView.h */,
-				649EDCDF17C8620600959F54 /* IndexPerformanceChartView.m */,
-				649EDCE117C8684100959F54 /* IndexPerformanceViewController.h */,
-				649EDCE217C8684100959F54 /* IndexPerformanceViewController.m */,
+				646D506D17C8920F0088E4ED /* StockIndex.h */,
+				646D506E17C8920F0088E4ED /* StockIndex.m */,
+				646D507017C892FA0088E4ED /* StockIndex+SampleData.h */,
+				646D507117C892FA0088E4ED /* StockIndex+SampleData.m */,
 			);
-			name = IndexReturnChart;
+			path = StockIndex;
+			sourceTree = "<group>";
+		};
+		649EDCD817C84A4700959F54 /* StockChart */ = {
+			isa = PBXGroup;
+			children = (
+				642DDA8B17C8D0A700373BED /* StockIndexView.h */,
+				642DDA8C17C8D0A700373BED /* StockIndexView.m */,
+				642DDA8D17C8D0A700373BED /* StockPerformanceChartView.m */,
+				642DDA8717C8D09C00373BED /* StockPerformanceChartView.h */,
+				642DDA8817C8D09C00373BED /* StockPerformanceViewController.h */,
+				642DDA8917C8D09C00373BED /* StockPerformanceViewController.m */,
+				64824A0217C8B5BA0066DC6B /* StockIndexView.xib */,
+			);
+			name = StockChart;
 			sourceTree = "<group>";
 		};
 		EFA7FAD417C847B900B8637E = {
@@ -125,7 +141,8 @@
 		EFA7FAE617C847B900B8637E /* Matrix */ = {
 			isa = PBXGroup;
 			children = (
-				649EDCD817C84A4700959F54 /* IndexReturnChart */,
+				646D506C17C891E50088E4ED /* StockIndex */,
+				649EDCD817C84A4700959F54 /* StockChart */,
 				EFA7FAEF17C847B900B8637E /* AppDelegate.h */,
 				EFA7FAF017C847B900B8637E /* AppDelegate.m */,
 				EFA7FAFD17C847CC00B8637E /* GridViewController.h */,
@@ -212,7 +229,7 @@
 				EFA7FAF317C847B900B8637E /* Default.png in Resources */,
 				EFA7FAF517C847B900B8637E /* Default@2x.png in Resources */,
 				EFA7FAF717C847B900B8637E /* Default-568h@2x.png in Resources */,
-				649EDCDD17C84A8900959F54 /* IndexReturnChartView.xib in Resources */,
+				64824A0317C8B5BA0066DC6B /* StockIndexView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,12 +244,14 @@
 				EFA7FAF117C847B900B8637E /* AppDelegate.m in Sources */,
 				EFA7FAFF17C847CC00B8637E /* GridViewController.m in Sources */,
 				EFA7FB0217C847D600B8637E /* MatrixViewController.m in Sources */,
-				649EDCDB17C84A6B00959F54 /* IndexReturnChartView.m in Sources */,
-				649EDCE017C8620600959F54 /* IndexPerformanceChartView.m in Sources */,
-				649EDCE317C8684100959F54 /* IndexPerformanceViewController.m in Sources */,
+				646D506F17C8920F0088E4ED /* StockIndex.m in Sources */,
+				646D507217C892FA0088E4ED /* StockIndex+SampleData.m in Sources */,
 				EFA7FB0517C88AB500B8637E /* MatrixCollectionViewLayout.m in Sources */,
 				EFA7FB0817C894E600B8637E /* LabelCollectionViewCell.m in Sources */,
 				8981B59817C88885008E20BE /* GridView.m in Sources */,
+				642DDA8A17C8D09C00373BED /* StockPerformanceViewController.m in Sources */,
+				642DDA8E17C8D0A700373BED /* StockIndexView.m in Sources */,
+				642DDA8F17C8D0A700373BED /* StockPerformanceChartView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

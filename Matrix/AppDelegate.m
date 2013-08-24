@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "GridViewController.h"
 #import "MatrixViewController.h"
-#import "IndexPerformanceViewController.h"
+#import "StockPerformanceViewController.h"
 
 @implementation AppDelegate
 
@@ -22,7 +22,6 @@
     
 //        [self.window setRootViewController:[[IndexPerformanceViewController alloc] init]];
     [self.window setRootViewController:[[GridViewController alloc] init]];
-//    [self.window setRootViewController:[[MatrixViewController alloc] init]];
     
     return YES;
 }
