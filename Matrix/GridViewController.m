@@ -61,7 +61,8 @@
     
     self.gridView = [[GridView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
     [self.gridView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-    //[self.gridView addSubview:imageView];
+    //imageView.alpha = .5;
+    [self.gridView addSubview:imageView];
     [self.view addSubview:self.gridView];
     
     

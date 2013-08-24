@@ -25,7 +25,7 @@
     if (self) {
         // Initialization code
         // create chart grid
-        [self createChartGrid];
+        //[self createChartGrid];
     }
     return self;
 }
