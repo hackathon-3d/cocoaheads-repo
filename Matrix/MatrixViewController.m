@@ -150,7 +150,18 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    
+    if (scrollView == self.gridScrollView) {
+        [self.verticalYearScrollView setContentOffset:CGPointMake(0.0, scrollView.contentOffset.y)];
+        [self.horizontalYearScrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, 0.0)];
+        
+    }
+    else if (scrollView == self.verticalYearScrollView) {
+        [self.gridScrollView setContentOffset:CGPointMake(self.gridScrollView.contentOffset.x, self.verticalYearScrollView.contentOffset.y)];
+        
+    }
+    else if (scrollView == self.horizontalYearScrollView) {
+        [self.gridScrollView setContentOffset:CGPointMake(self.horizontalYearScrollView.contentOffset.x, self.gridScrollView.contentOffset.y)];
+    }
 }
 
 #pragma mark - Views
