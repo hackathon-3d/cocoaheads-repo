@@ -54,11 +54,11 @@
     [self.view setBackgroundColor:[UIColor darkGrayColor]];
     
     [self backButton];
-    [self titleLabel];
     
-    [self gridScrollView];
+    [self.titleLabel setText:@"S&P Global Index"];
     
     [self setupYears];
+    [self setupData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,18 +72,50 @@
     
 }
 
+#pragma mark - Data
+
+- (void)setupData
+{
+    NSInteger difference = self.endingYear - self.startingYear;
+    
+    CGFloat height = CGRectGetHeight(self.horizontalYearScrollView.bounds);
+    CGFloat width = CGRectGetWidth(self.verticalYearScrollView.bounds);
+    
+    // Top to Bottom
+    for (int x = 0; x < difference; x++) {
+        for (int y = 0; y < difference; y++) {
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake((width * x), (height * y), width, height)];
+            
+            [label setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
+            
+            [label setTextAlignment:NSTextAlignmentCenter];
+            [label setTextColor:[UIColor whiteColor]];
+            
+            [label setFont:[UIFont boldSystemFontOfSize:14.0]];
+            
+            [label setText:[NSString stringWithFormat:@"%.02f",(arc4random_uniform(100) / 100.0)]];
+            
+            [self.gridScrollView addSubview:label];
+            
+            [self.gridScrollView setContentSize:CGSizeMake(CGRectGetMaxX(label.frame), CGRectGetMaxY(label.frame))];
+        }
+    }
+
+}
+
 #pragma mark - Years
 
 - (void)setupYears
 {
     NSInteger difference = self.endingYear - self.startingYear;
     
-    CGFloat height = 20.0;
+    CGFloat height = CGRectGetHeight(self.horizontalYearScrollView.bounds);
+    CGFloat width = CGRectGetWidth(self.verticalYearScrollView.bounds);
     
     for (int i = 0; i < difference; i++) {
         int year = self.startingYear + i;
         
-        UILabel *verticalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, (20.0 * i), CGRectGetWidth(self.verticalYearScrollView.bounds), height)];
+        UILabel *verticalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, (height * i), width, height)];
         
         [verticalLabel setText:[NSString stringWithFormat:@"%i",year]];
         
@@ -97,7 +129,7 @@
         [self.verticalYearScrollView setContentSize:CGSizeMake(CGRectGetWidth(self.verticalYearScrollView.bounds), CGRectGetMaxY(verticalLabel.frame))];
         
         //
-        UILabel *horizontalLabel = [[UILabel alloc] initWithFrame:CGRectMake((40.0 * i), 0.0, CGRectGetWidth(self.verticalYearScrollView.bounds), height)];
+        UILabel *horizontalLabel = [[UILabel alloc] initWithFrame:CGRectMake((width * i), 0.0, width, height)];
         
         [horizontalLabel setText:[NSString stringWithFormat:@"%i",year]];
         
