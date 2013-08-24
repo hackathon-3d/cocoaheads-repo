@@ -13,7 +13,7 @@
 
 
 
-@interface GridViewController (){
+@interface GridViewController ()   <SectionButtonTappedDelegate>{
     CGPoint _oldGridViewCenter;
     MatrixViewController *_matrixViewController;
     UIImage *_matrixViewControllerScreenShot;
@@ -52,8 +52,13 @@
     [self setGradientBackground];
     
     self.gridView = [[GridView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
+    self.gridView.delegate = self;
     [self.gridView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
     [self.view addSubview:self.gridView];
+}
+-(void)sectionButtonTapped:(CGPoint)point
+{
+    [self zoomInToSectionContainingPoint:point];
 }
 
 - (void)setGradientBackground {
@@ -125,7 +130,7 @@
     matrixViewControllerSnapshotImageView.transform = CGAffineTransformScale(matrixViewControllerSnapshotImageView.transform, .33, .33);
     [self.view addSubview: matrixViewControllerSnapshotImageView];
     
-    [UIView animateWithDuration:0.5f delay:0 options:0 animations:^{
+    [UIView animateWithDuration:1.0f delay:0 options:0 animations:^{
        
         myView.transform = tr;
         myView.center = finalGridViewCenter;
@@ -164,7 +169,7 @@
     CGAffineTransform tr = CGAffineTransformIdentity;
     CGPoint newCenter = CGPointMake(512.0, 374.0);
     myView.alpha = 1;
-    [UIView animateWithDuration:0.5f delay:0 options:0 animations:^{
+    [UIView animateWithDuration:1.0f delay:0 options:0 animations:^{
         myView.transform = tr;
         myView.center = _oldGridViewCenter;
         matrixViewControllerSnapshotImageView.alpha = 0;

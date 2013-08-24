@@ -13,8 +13,9 @@
 		646D506F17C8920F0088E4ED /* StockIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 646D506E17C8920F0088E4ED /* StockIndex.m */; };
 		646D507217C892FA0088E4ED /* StockIndex+SampleData.m in Sources */ = {isa = PBXBuildFile; fileRef = 646D507117C892FA0088E4ED /* StockIndex+SampleData.m */; };
 		64824A0317C8B5BA0066DC6B /* StockIndexView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64824A0217C8B5BA0066DC6B /* StockIndexView.xib */; };
+		8978255A17C8F2E1008F3A67 /* StockViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8978255917C8F2E1008F3A67 /* StockViewButton.m */; };
 		8981B59817C88885008E20BE /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8981B59717C88885008E20BE /* GridView.m */; };
-		EF0C669617C8E35E00352693 /* MagnifierView.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0C669517C8E35E00352693 /* MagnifierView.m */; };
+		89C6CACA17C90DE900B846C7 /* MagnifierView.m in Sources */ = {isa = PBXBuildFile; fileRef = 89C6CAC917C90DE900B846C7 /* MagnifierView.m */; };
 		EFA7FAE117C847B900B8637E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA7FAE017C847B900B8637E /* UIKit.framework */; };
 		EFA7FAE317C847B900B8637E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA7FAE217C847B900B8637E /* Foundation.framework */; };
 		EFA7FAE517C847B900B8637E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA7FAE417C847B900B8637E /* CoreGraphics.framework */; };
@@ -43,9 +44,13 @@
 		646D507017C892FA0088E4ED /* StockIndex+SampleData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StockIndex+SampleData.h"; sourceTree = "<group>"; };
 		646D507117C892FA0088E4ED /* StockIndex+SampleData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "StockIndex+SampleData.m"; sourceTree = "<group>"; };
 		64824A0217C8B5BA0066DC6B /* StockIndexView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockIndexView.xib; sourceTree = "<group>"; };
+		8978255817C8F2E1008F3A67 /* StockViewButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockViewButton.h; sourceTree = "<group>"; };
+		8978255917C8F2E1008F3A67 /* StockViewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockViewButton.m; sourceTree = "<group>"; };
 		8981B59417C87790008E20BE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8981B59617C88885008E20BE /* GridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridView.h; sourceTree = "<group>"; };
 		8981B59717C88885008E20BE /* GridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridView.m; sourceTree = "<group>"; };
+		89C6CAC817C90DE900B846C7 /* MagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagnifierView.h; sourceTree = "<group>"; };
+		89C6CAC917C90DE900B846C7 /* MagnifierView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagnifierView.m; sourceTree = "<group>"; };
 		EF0C669417C8E35E00352693 /* MagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagnifierView.h; sourceTree = "<group>"; };
 		EF0C669517C8E35E00352693 /* MagnifierView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagnifierView.m; sourceTree = "<group>"; };
 		EFA7FADD17C847B900B8637E /* Matrix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Matrix.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,6 +157,10 @@
 				EFA7FAFE17C847CC00B8637E /* GridViewController.m */,
 				8981B59617C88885008E20BE /* GridView.h */,
 				8981B59717C88885008E20BE /* GridView.m */,
+				89C6CAC817C90DE900B846C7 /* MagnifierView.h */,
+				89C6CAC917C90DE900B846C7 /* MagnifierView.m */,
+				8978255817C8F2E1008F3A67 /* StockViewButton.h */,
+				8978255917C8F2E1008F3A67 /* StockViewButton.m */,
 				EFA7FB0017C847D600B8637E /* MatrixViewController.h */,
 				EFA7FB0117C847D600B8637E /* MatrixViewController.m */,
 				EFA7FB0617C894E600B8637E /* LabelCollectionViewCell.h */,
@@ -257,7 +266,8 @@
 				642DDA8A17C8D09C00373BED /* StockPerformanceViewController.m in Sources */,
 				642DDA8E17C8D0A700373BED /* StockIndexView.m in Sources */,
 				642DDA8F17C8D0A700373BED /* StockPerformanceChartView.m in Sources */,
-				EF0C669617C8E35E00352693 /* MagnifierView.m in Sources */,
+				8978255A17C8F2E1008F3A67 /* StockViewButton.m in Sources */,
+				89C6CACA17C90DE900B846C7 /* MagnifierView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
