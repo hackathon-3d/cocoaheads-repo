@@ -16,6 +16,8 @@
 		EFA7FAF317C847B900B8637E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = EFA7FAF217C847B900B8637E /* Default.png */; };
 		EFA7FAF517C847B900B8637E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EFA7FAF417C847B900B8637E /* Default@2x.png */; };
 		EFA7FAF717C847B900B8637E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EFA7FAF617C847B900B8637E /* Default-568h@2x.png */; };
+		EFA7FAFF17C847CC00B8637E /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA7FAFE17C847CC00B8637E /* GridViewController.m */; };
+		EFA7FB0217C847D600B8637E /* MatrixViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA7FB0117C847D600B8637E /* MatrixViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,10 @@
 		EFA7FAF217C847B900B8637E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		EFA7FAF417C847B900B8637E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		EFA7FAF617C847B900B8637E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		EFA7FAFD17C847CC00B8637E /* GridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewController.h; sourceTree = "<group>"; };
+		EFA7FAFE17C847CC00B8637E /* GridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
+		EFA7FB0017C847D600B8637E /* MatrixViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixViewController.h; sourceTree = "<group>"; };
+		EFA7FB0117C847D600B8637E /* MatrixViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatrixViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +86,10 @@
 			children = (
 				EFA7FAEF17C847B900B8637E /* AppDelegate.h */,
 				EFA7FAF017C847B900B8637E /* AppDelegate.m */,
+				EFA7FAFD17C847CC00B8637E /* GridViewController.h */,
+				EFA7FAFE17C847CC00B8637E /* GridViewController.m */,
+				EFA7FB0017C847D600B8637E /* MatrixViewController.h */,
+				EFA7FB0117C847D600B8637E /* MatrixViewController.m */,
 				EFA7FAE717C847B900B8637E /* Supporting Files */,
 			);
 			path = Matrix;
@@ -166,6 +176,8 @@
 			files = (
 				EFA7FAED17C847B900B8637E /* main.m in Sources */,
 				EFA7FAF117C847B900B8637E /* AppDelegate.m in Sources */,
+				EFA7FAFF17C847CC00B8637E /* GridViewController.m in Sources */,
+				EFA7FB0217C847D600B8637E /* MatrixViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
