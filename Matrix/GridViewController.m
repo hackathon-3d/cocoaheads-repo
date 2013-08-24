@@ -13,7 +13,7 @@
 
 
 
-@interface GridViewController (){
+@interface GridViewController ()   <SectionButtonTappedDelegate>{
     CGPoint _oldGridViewCenter;
     MatrixViewController *_matrixViewController;
     UIImage *_matrixViewControllerScreenShot;
@@ -52,8 +52,13 @@
     [self setGradientBackground];
     
     self.gridView = [[GridView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
+    self.gridView.delegate = self;
     [self.gridView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
     [self.view addSubview:self.gridView];
+}
+-(void)sectionButtonTapped:(CGPoint)point
+{
+    [self zoomInToSectionContainingPoint:point];
 }
 
 - (void)setGradientBackground {

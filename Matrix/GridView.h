@@ -8,7 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SectionButtonTappedDelegate
+-(void)sectionButtonTapped:(CGPoint)point;
+@end
+
 @interface GridView : UIView
 -(CGPoint)getSectionUnitCenter:(int)sectionIndex;
 -(int)getSectionIndexFromPoint:(CGPoint)point;
+@property (weak, nonatomic) id  <SectionButtonTappedDelegate> delegate;
 @end
+
+
+
+

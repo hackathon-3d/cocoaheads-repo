@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StockIndex.h"
+#import "StockIndex+SampleData.h"
 
 @interface MatrixViewController : UIViewController
+
+@property (nonatomic, strong) StockIndex *stockIndex;
 
 @end
