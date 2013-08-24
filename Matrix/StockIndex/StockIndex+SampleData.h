@@ -8,8 +8,6 @@
 
 #import "StockIndex.h"
 
-NSString * const kStockIndexYearKey = @"StockIndexYear";
-NSString * const kStockIndexReturnRateKey = @"StockIndexReturnRate";
 
 @interface StockIndex (SampleData)
 

@@ -8,7 +8,21 @@
 
 #import "StockIndex.h"
 
+NSString * const kStockIndexYearKey = @"StockIndexYear";
+NSString * const kStockIndexReturnRateKey = @"StockIndexReturnRate";
+
 @implementation StockIndex
 
+- (CGFloat)portfolioForInitialValue:(CGFloat)initialValue {
+    
+    CGFloat investmentValue = initialValue;
+    
+    for (id returnRate in [self annualReturns]){
+        CGFloat annualRate = [[(NSDictionary*)returnRate objectForKey:kStockIndexReturnRateKey] floatValue];
+        investmentValue += investmentValue * (annualRate/100);
+    }
+    
+    return investmentValue;
+}
 
 @end

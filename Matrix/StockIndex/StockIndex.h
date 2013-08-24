@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+extern NSString * const kStockIndexYearKey;
+extern NSString * const kStockIndexReturnRateKey;
+
 @interface StockIndex : NSObject
 
 @property (nonatomic, strong) NSString *title;
@@ -16,5 +19,6 @@
 @property (nonatomic) NSUInteger endYear;
 @property (nonatomic, strong) NSArray *annualReturns; // array of dictionaries of annual returns
 
+- (CGFloat)portfolioForInitialValue:(CGFloat)initialValue;
 
 @end

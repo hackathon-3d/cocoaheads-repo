@@ -6,22 +6,23 @@
 //  Copyright (c) 2013 Cocoaheads. All rights reserved.
 //
 
-#import "IndexPerformanceChartView.h"
+#import "StockPerformanceChartView.h"
 #import "StockIndex+SampleData.h"
 
 #define Y_COORD_CONSTANT 3
 
-@interface IndexPerformanceChartView () {
-    int portfolioValue;
+@interface StockPerformanceChartView () {
+    float initialInvestment;
 }
 
 @end
 
-@implementation IndexPerformanceChartView
+@implementation StockPerformanceChartView
 
 - (id)initForStockIndex:(StockIndex *)stockIndex frame:(CGRect)frame {
     if ((self = [self initWithFrame:frame])){
         _stockIndex = stockIndex;
+        self.opaque = NO;
     }
     
     return self;
@@ -30,24 +31,14 @@
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        self.opaque = NO;
     }
     return self;
 }
 
 - (void)drawRect:(CGRect)rect {
-    
-    NSArray *performanceArray = @[[NSNumber numberWithFloat:1.0],
-                                  [NSNumber numberWithFloat:26.4],
-                                  [NSNumber numberWithFloat:12.5],
-                                  [NSNumber numberWithFloat:23.4],
-                                  [NSNumber numberWithFloat:18.7],
-                                  [NSNumber numberWithFloat:34.7],
-                                  [NSNumber numberWithFloat:10.2],
-                                  [NSNumber numberWithFloat:16.2],
-                                  ];
-    portfolioValue = 240;
-    
+    self.opaque = NO;
+
     UIColor *lineColor = [UIColor colorWithRed:30.0/255.0 green:30.0/255.0 blue:30.0/255.0 alpha:1.0];
     
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -55,14 +46,16 @@
     CGContextScaleCTM(context, 1, -1);
     CGContextTranslateCTM(context, 0, -self.frame.size.height);
 
-    int xCoordInterval = floor(self.frame.size.width / [performanceArray count]);
+    int xCoordInterval = floor(self.frame.size.width / [[self.stockIndex annualReturns] count] - 1);
     
     CGPoint startPoint;
     CGPoint endPoint;
-    for (int i = 0; i < [performanceArray count] - 1; i++) {
+    for (int i = 0; i < [[self.stockIndex annualReturns] count] - 1; i++) {
         
-        startPoint = CGPointMake(i*xCoordInterval, [[performanceArray objectAtIndex:i] floatValue] * Y_COORD_CONSTANT);
-        endPoint = CGPointMake((i+1)*xCoordInterval, [[performanceArray objectAtIndex:i + 1] floatValue] * Y_COORD_CONSTANT);
+        NSDictionary *startRORDict = (NSDictionary*)[[self.stockIndex annualReturns] objectAtIndex:i];
+        NSDictionary *endRORDict = (NSDictionary*)[[self.stockIndex annualReturns] objectAtIndex:i+1];
+        startPoint = CGPointMake(i*xCoordInterval, [[startRORDict objectForKey:kStockIndexReturnRateKey] floatValue] * Y_COORD_CONSTANT);
+        endPoint = CGPointMake((i+1)*xCoordInterval, [[endRORDict objectForKey:kStockIndexReturnRateKey] floatValue] * Y_COORD_CONSTANT);
 
         [self draw1PxStrokeInContext:context
                           startPoint:startPoint
@@ -71,7 +64,8 @@
     }
     [self drawPointInContext:context endPoint:endPoint color:lineColor.CGColor];
     
-    NSString *roiString = [NSString stringWithFormat:@"$%d", portfolioValue];
+    initialInvestment = 1.0;
+    NSString *roiString = [NSString stringWithFormat:@"$%f", [self.stockIndex portfolioForInitialValue:initialInvestment]];
     CGContextSaveGState(context);
     CGContextTranslateCTM(context, 0, endPoint.y+50);
     CGContextScaleCTM(context, 1.0, -1.0);

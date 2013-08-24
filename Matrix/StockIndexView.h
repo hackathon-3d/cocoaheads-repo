@@ -1,5 +1,5 @@
 //
-//  IndexPerformanceChartView.h
+//  IndexReturnChartView.h
 //  Matrix
 //
 //  Created by Alondo  on 8/23/13.
@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 @class StockIndex;
 
-@interface IndexPerformanceChartView : UIView
+@interface StockIndexView : UIView
 
-- (id)initForStockIndex:(StockIndex *)stockIndex frame:(CGRect)frame;
 @property (nonatomic, strong) StockIndex *stockIndex;
+- (id)initForStockIndex:(StockIndex *)stockIndex frame:(CGRect)frame;
 
 @end
