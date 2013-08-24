@@ -9,10 +9,12 @@
 #import "StockPerformanceChartView.h"
 #import "StockIndex+SampleData.h"
 
-#define Y_COORD_CONSTANT 3
+#define INITIAL_INVESTMENT 100
 
 @interface StockPerformanceChartView () {
     float initialInvestment;
+    UIColor *chartColor;
+    NSMutableArray *yearlyPortfolioValue;
 }
 
 @end
@@ -22,6 +24,7 @@
 - (id)initForStockIndex:(StockIndex *)stockIndex frame:(CGRect)frame {
     if ((self = [self initWithFrame:frame])){
         _stockIndex = stockIndex;
+        [self calculateAnnualPortfolioValue];
         self.opaque = NO;
     }
     
@@ -36,38 +39,52 @@
     return self;
 }
 
+- (void)calculateAnnualPortfolioValue {
+    yearlyPortfolioValue = [NSMutableArray array];
+    for (int i = 0; i < [[self.stockIndex annualReturns] count] - 1; i++) {
+        CGFloat portfolioValue;
+        
+        NSDictionary *rorDict = (NSDictionary*)[[self.stockIndex annualReturns] objectAtIndex:i];
+        CGFloat annualRate = [[(NSDictionary *)rorDict objectForKey:kStockIndexReturnRateKey] floatValue];
+        if (i == 0){
+            portfolioValue = INITIAL_INVESTMENT * (annualRate/100) + INITIAL_INVESTMENT;
+        }else {
+            portfolioValue = [[yearlyPortfolioValue objectAtIndex:i-1] floatValue] * (annualRate/100) + [[yearlyPortfolioValue objectAtIndex:i-1] floatValue];
+        }
+        
+        [yearlyPortfolioValue insertObject:[NSNumber numberWithFloat:portfolioValue] atIndex:i];
+    }
+}
+
 - (void)drawRect:(CGRect)rect {
     self.opaque = NO;
-
-    UIColor *lineColor = [UIColor colorWithRed:30.0/255.0 green:30.0/255.0 blue:30.0/255.0 alpha:1.0];
+    chartColor = [UIColor whiteColor];
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
     CGContextScaleCTM(context, 1, -1);
-    CGContextTranslateCTM(context, 0, -self.frame.size.height);
+    CGContextTranslateCTM(context, 0, -self.frame.size.height * 1.6);
 
     int xCoordInterval = floor(self.frame.size.width / [[self.stockIndex annualReturns] count] - 1);
     
     CGPoint startPoint;
     CGPoint endPoint;
-    for (int i = 0; i < [[self.stockIndex annualReturns] count] - 1; i++) {
-        
-        NSDictionary *startRORDict = (NSDictionary*)[[self.stockIndex annualReturns] objectAtIndex:i];
-        NSDictionary *endRORDict = (NSDictionary*)[[self.stockIndex annualReturns] objectAtIndex:i+1];
-        startPoint = CGPointMake(i*xCoordInterval, [[startRORDict objectForKey:kStockIndexReturnRateKey] floatValue] * Y_COORD_CONSTANT);
-        endPoint = CGPointMake((i+1)*xCoordInterval, [[endRORDict objectForKey:kStockIndexReturnRateKey] floatValue] * Y_COORD_CONSTANT);
+    for (int i = 0; i < [[self.stockIndex annualReturns] count] - 2; i++) {
+        startPoint = CGPointMake(i*xCoordInterval, [[yearlyPortfolioValue objectAtIndex:i] floatValue]);
+        endPoint = CGPointMake((i+1)*xCoordInterval, [[yearlyPortfolioValue objectAtIndex:i+1] floatValue]);
 
         [self draw1PxStrokeInContext:context
                           startPoint:startPoint
                             endPoint:endPoint
-                               color:lineColor.CGColor];
+                               color:chartColor.CGColor];
     }
-    [self drawPointInContext:context endPoint:endPoint color:lineColor.CGColor];
+    [self drawPointInContext:context endPoint:endPoint color:chartColor.CGColor];
     
-    initialInvestment = 1.0;
-    NSString *roiString = [NSString stringWithFormat:@"$%f", [self.stockIndex portfolioForInitialValue:initialInvestment]];
+    initialInvestment = 100.0;
+    NSString *roiString = [NSString stringWithFormat:@"$%.2f", [self.stockIndex portfolioForInitialValue:initialInvestment]];
     CGContextSaveGState(context);
-    CGContextTranslateCTM(context, 0, endPoint.y+50);
+    CGContextSetFillColorWithColor(context, chartColor.CGColor);
+    CGContextTranslateCTM(context, -30, endPoint.y - 70);
     CGContextScaleCTM(context, 1.0, -1.0);
     [roiString drawAtPoint:endPoint withFont:[UIFont boldSystemFontOfSize:14.0]];
     CGContextRestoreGState(context);
@@ -76,7 +93,7 @@
 - (void)drawPointInContext:(CGContextRef)context endPoint:(CGPoint)endPoint color:(CGColorRef)color {
     CGContextSaveGState(context);
     CGContextSetLineWidth(context, 4.0);
-    CGContextSetStrokeColorWithColor(context, [UIColor blackColor].CGColor);
+    CGContextSetStrokeColorWithColor(context, chartColor.CGColor);
     CGContextBeginPath(context);
     CGContextAddEllipseInRect(context, CGRectMake(endPoint.x, endPoint.y, 4, 4));
     CGContextDrawPath(context, kCGPathFillStroke);
@@ -96,6 +113,7 @@
 
 - (void)setStockIndex:(StockIndex *)stockIndex {
     _stockIndex = stockIndex;
+    [self calculateAnnualPortfolioValue];
     [self setNeedsDisplay];
 }
 

@@ -26,8 +26,7 @@
 
 @implementation GridViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -35,11 +34,8 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    
     // Create and initialize a tap gesture
     UITapGestureRecognizer *tapRecognizer = [[UITapGestureRecognizer alloc]
                                              initWithTarget:self action:@selector(handleTap:)];
@@ -50,47 +46,51 @@
     // Add the tap gesture recognizer to the view
     [self.view addGestureRecognizer:tapRecognizer];
     
-    
-    
-    UIImage *image = [UIImage imageNamed:@"gridViewTemp04.jpg"];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    
     float viewWidth = self.view.bounds.size.width;
     float viewHeight = self.view.bounds.size.height;
-    //NSLog( [NSString stringWithFormat:@"%f,%f", viewWidth, viewHeight]);
+    
+    [self setGradientBackground];
     
     self.gridView = [[GridView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
     self.gridView.delegate = self;
     [self.gridView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-    //imageView.alpha = .5;
-//    [self.gridView addSubview:imageView];
     [self.view addSubview:self.gridView];
-    
-    
 }
 -(void)sectionButtonTapped:(CGPoint)point
 {
     [self zoomInToSectionContainingPoint:point];
 }
 
-/*
-// make image
--(UIImage*) makeImage {
-    
-    UIGraphicsBeginImageContext(self.view.bounds.size);
-    
-    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
-    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return viewImage;
+- (void)setGradientBackground {
+    CAGradientLayer *bgLayer = [self greenGradient];
+    bgLayer.frame = CGRectMake(0, 0, self.view.frame.size.height, self.view.frame.size.width);
+    [self.view.layer insertSublayer:bgLayer atIndex:0];
 }
-*/
+
+- (CAGradientLayer*) greenGradient {
+    
+    UIColor *colorOne = [UIColor colorWithHue:77/359.0 saturation:0.56 brightness:0.73 alpha:1.0];
+    UIColor *colorTwo = [UIColor colorWithHue:52/359.0 saturation:0.94 brightness:0.87  alpha:1.0];
+    
+    NSArray *colors = [NSArray arrayWithObjects:(id)colorOne.CGColor, colorTwo.CGColor, nil];
+    NSNumber *stopOne = [NSNumber numberWithFloat:0.0];
+    NSNumber *stopTwo = [NSNumber numberWithFloat:1.0];
+    
+    NSArray *locations = [NSArray arrayWithObjects:stopOne, stopTwo, nil];
+    
+    CAGradientLayer *bgLayer = [CAGradientLayer layer];
+    bgLayer.colors = colors;
+    bgLayer.locations = locations;
+    bgLayer.startPoint = CGPointMake(0, 1);
+    bgLayer.endPoint = CGPointMake(1, 0);
+    
+    return bgLayer;
+    
+}
+
 
 // tap gesture
-- (void)handleTap:(UITapGestureRecognizer *)sender
-{
+- (void)handleTap:(UITapGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateEnded)     {
         // handling tap
         NSLog(@"Tap");
@@ -100,8 +100,7 @@
 }
 
 // zoom in
-- (void)zoomInToSectionContainingPoint:(CGPoint)point
-{
+- (void)zoomInToSectionContainingPoint:(CGPoint)point {
     UIView *myView = self.gridView;
     CGAffineTransform tr = CGAffineTransformScale(myView.transform, 3, 3);
     
