@@ -7,6 +7,7 @@
 //
 
 #import "MatrixViewController.h"
+#import "GridViewController.h"
 
 @interface MatrixViewController () <UIScrollViewDelegate>
 
@@ -69,7 +70,12 @@
 
 - (void)goBack:(id)sender
 {
+    // return to GridViewController
     
+    GridViewController *gridViewController = (GridViewController *)[self presentingViewController];
+    [gridViewController dismissViewControllerAnimated:NO completion:^{
+        [gridViewController zoomOutFromSelectedSection];
+    }];
 }
 
 #pragma mark - Data
@@ -174,7 +180,7 @@
         _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_backButton setFrame:CGRectMake(0.0, 0.0, 44.0, 44.0)];
         
-        [_titleLabel setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
+        [_backButton setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
         
         [_backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
         
