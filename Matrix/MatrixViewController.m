@@ -136,13 +136,11 @@
             
         case UIGestureRecognizerStateChanged: {
             
-            CGPoint touch = [gesture locationInView:self.view];
+            CGPoint touch = [gesture locationInView:self.gridCollectionView];
             
-            [self.magnifier setTouchPoint:touch];
+            [self.magnifier setTouchPoint:CGPointMake(touch.x + VerticalGutter + MinimumSize.width, touch.y + Header)];
             
-            touch.y -= 96.0;
-            
-            [self.magnifier setCenter:touch];
+            [self.magnifier setCenter:[self.view convertPoint:CGPointMake(touch.x, (touch.y - 96.0)) fromView:self.gridCollectionView]];
             [self.magnifier setNeedsDisplay];
             
 //            [self.layout setTouchPoint:[gesture locationInView:self.gridCollectionView]];

@@ -46,7 +46,7 @@
     
     CGPoint touchPoint = [self.sourceView convertPoint:self.center fromView:self.superview];
     
-//    CGContextTranslateCTM(context, -touchPoint.x, -touchPoint.y);
+    CGContextTranslateCTM(context, -(touchPoint.x - 64.0), -(touchPoint.y + 24.0));
     
 //    UIBezierPath *clippingPath = [UIBezierPath bezierPathWithOvalInRect:self.bounds];
 //    [clippingPath addClip];
