@@ -129,6 +129,8 @@
 
     _growthLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 62, 100, 21)];
     [_growthLabel setTextAlignment:NSTextAlignmentRight];
+    [_growthLabel setText:@"GROWTH OF $1"];
+    [_growthLabel setFont:labelFont];
     [self addSubview:_growthLabel];
     
     _level0Label = [[UILabel alloc] initWithFrame:CGRectMake(5, 209, 50, 21)];
