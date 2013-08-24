@@ -11,6 +11,8 @@
 #import "LabelCollectionViewCell.h"
 #import "GridViewController.h"
 
+#import "MagnifierView.h"
+
 @interface MatrixViewController () <UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 {
     NSMutableArray *visibleCells;
@@ -20,6 +22,8 @@
     float maxValue;
     float minValue;
 }
+
+@property (nonatomic, strong) MagnifierView *magnifier;
 
 @property (nonatomic, readwrite) NSInteger startingYear;
 @property (nonatomic, readwrite) NSInteger endingYear;
@@ -122,13 +126,26 @@
 - (void)handlePan:(UIPanGestureRecognizer *)gesture
 {
     switch (gesture.state) {
-        case UIGestureRecognizerStateBegan:
+        case UIGestureRecognizerStateBegan: {
             
-            break;
+            [UIView animateWithDuration:0.25 animations:^{
+                [self.magnifier setAlpha:1.0];
+            }];
+            
+        }   break;
             
         case UIGestureRecognizerStateChanged: {
             
-            [self.layout setTouchPoint:[gesture locationInView:self.gridCollectionView]];
+            CGPoint touch = [gesture locationInView:self.view];
+            
+            [self.magnifier setTouchPoint:touch];
+            
+            touch.y -= 96.0;
+            
+            [self.magnifier setCenter:touch];
+            [self.magnifier setNeedsDisplay];
+            
+//            [self.layout setTouchPoint:[gesture locationInView:self.gridCollectionView]];
             
 //            NSIndexPath *touchedIndexPath = [self.gridCollectionView indexPathForItemAtPoint:[gesture locationInView:self.gridCollectionView]];
 //            
@@ -153,9 +170,13 @@
             
         }   break;
             
-        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateEnded: {
             
-            break;
+            [UIView animateWithDuration:0.25 animations:^{
+                [self.magnifier setAlpha:0.0];
+            }];
+            
+        }   break;
             
         default:
             break;
@@ -395,6 +416,20 @@
 }
 
 #pragma mark - Views
+
+- (MagnifierView *)magnifier
+{
+    if (!_magnifier) {
+        _magnifier = [[MagnifierView alloc] initWithFrame:CGRectMake(0.0, 0.0, 144.0, 144.0)];
+        [_magnifier setSourceView:self.gridCollectionView];
+        
+        [_magnifier setAlpha:0.0];
+        
+        [self.view addSubview:_magnifier];
+    }
+    
+    return _magnifier;
+}
 
 - (UIButton *)backButton
 {
