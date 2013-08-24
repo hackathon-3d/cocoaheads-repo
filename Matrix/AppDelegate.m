@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 
+#import "GridViewController.h"
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -16,6 +18,9 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    [self.window setRootViewController:[[GridViewController alloc] init]];
+    
     return YES;
 }
 
