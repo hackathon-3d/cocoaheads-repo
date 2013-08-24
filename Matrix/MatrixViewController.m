@@ -9,6 +9,7 @@
 #import "MatrixViewController.h"
 #import "MatrixCollectionViewLayout.h"
 #import "LabelCollectionViewCell.h"
+#import "GridViewController.h"
 
 @interface MatrixViewController () <UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 {
