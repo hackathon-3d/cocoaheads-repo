@@ -112,12 +112,10 @@
     _oldGridViewCenter = myView.center;
     _matrixViewController = [[MatrixViewController alloc] init];
     
-    // take snapshot
+    // take snapshot _matrixViewController
     _matrixViewController.view.frame = self.view.bounds;
     UIGraphicsBeginImageContext(self.view.bounds.size);
-    
     [_matrixViewController.view.layer renderInContext:UIGraphicsGetCurrentContext()];
-    
     UIImage *matrixViewControllerSnapshot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -150,15 +148,33 @@
 - (void)zoomOutFromSelectedSection
 {
     UIView *myView = self.gridView;
+    
+    // take snapshot _matrixViewController
+    _matrixViewController.view.frame = self.view.bounds;
+    UIGraphicsBeginImageContext(self.view.bounds.size);
+    [_matrixViewController.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *matrixViewControllerSnapshot = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIImageView *matrixViewControllerSnapshotImageView = [[UIImageView alloc] initWithImage:matrixViewControllerSnapshot];
+        [self.view addSubview: matrixViewControllerSnapshotImageView];
+    
+    
+    
     CGAffineTransform tr = CGAffineTransformIdentity;
     CGPoint newCenter = CGPointMake(512.0, 374.0);
     myView.alpha = 1;
     [UIView animateWithDuration:1.0f delay:0 options:0 animations:^{
         myView.transform = tr;
         myView.center = _oldGridViewCenter;
+        matrixViewControllerSnapshotImageView.alpha = 0;
+        matrixViewControllerSnapshotImageView.center = myView.center;
+        matrixViewControllerSnapshotImageView.transform = CGAffineTransformScale(matrixViewControllerSnapshotImageView.transform, .33, .33);
+
     } completion:^(BOOL finished) {
         myView.layer.anchorPoint = CGPointMake(0.5, 0.5);
-        myView.center = newCenter;        
+        myView.center = newCenter;
+        [matrixViewControllerSnapshotImageView removeFromSuperview];
     }];
 }
     
