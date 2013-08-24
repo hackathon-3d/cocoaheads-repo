@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface GridViewController : UIViewController
-
+-(void)zoomOutFromSelectedSection;
 @end

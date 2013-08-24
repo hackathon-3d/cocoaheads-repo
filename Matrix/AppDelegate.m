@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-
 #import "GridViewController.h"
 #import "MatrixViewController.h"
 #import "IndexPerformanceViewController.h"
@@ -18,7 +17,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
     
 //        [self.window setRootViewController:[[IndexPerformanceViewController alloc] init]];
