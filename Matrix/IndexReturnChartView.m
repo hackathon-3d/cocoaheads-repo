@@ -7,6 +7,7 @@
 //
 
 #import "IndexReturnChartView.h"
+#import "IndexPerformanceChartView.h"
 
 @interface IndexReturnChartView ()
 
@@ -16,7 +17,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *indexSubtitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *growthLabel;
 
-@property (nonatomic, strong) IBOutlet UIView *chartBGView;
+@property (nonatomic, strong) IBOutlet IndexPerformanceChartView *chartBGView;
 
 @property (nonatomic, strong) IBOutlet UILabel *level0Label;
 @property (nonatomic, strong) IBOutlet UILabel *level1Label;
@@ -30,8 +31,7 @@
 
 @implementation IndexReturnChartView
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
@@ -39,13 +39,8 @@
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+- (void)awakeFromNib {
+    _chartBGView = [[IndexPerformanceChartView alloc] initWithFrame:_chartBGView.frame];
 }
-*/
 
 @end

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		649EDCDB17C84A6B00959F54 /* IndexReturnChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 649EDCDA17C84A6B00959F54 /* IndexReturnChartView.m */; };
 		649EDCDD17C84A8900959F54 /* IndexReturnChartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 649EDCDC17C84A8900959F54 /* IndexReturnChartView.xib */; };
+		649EDCE017C8620600959F54 /* IndexPerformanceChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 649EDCDF17C8620600959F54 /* IndexPerformanceChartView.m */; };
+		649EDCE317C8684100959F54 /* IndexPerformanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 649EDCE217C8684100959F54 /* IndexPerformanceViewController.m */; };
 		EFA7FAE117C847B900B8637E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA7FAE017C847B900B8637E /* UIKit.framework */; };
 		EFA7FAE317C847B900B8637E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA7FAE217C847B900B8637E /* Foundation.framework */; };
 		EFA7FAE517C847B900B8637E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA7FAE417C847B900B8637E /* CoreGraphics.framework */; };
@@ -26,6 +28,10 @@
 		649EDCD917C84A6B00959F54 /* IndexReturnChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexReturnChartView.h; sourceTree = "<group>"; };
 		649EDCDA17C84A6B00959F54 /* IndexReturnChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexReturnChartView.m; sourceTree = "<group>"; };
 		649EDCDC17C84A8900959F54 /* IndexReturnChartView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IndexReturnChartView.xib; sourceTree = "<group>"; };
+		649EDCDE17C8620600959F54 /* IndexPerformanceChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexPerformanceChartView.h; sourceTree = "<group>"; };
+		649EDCDF17C8620600959F54 /* IndexPerformanceChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexPerformanceChartView.m; sourceTree = "<group>"; };
+		649EDCE117C8684100959F54 /* IndexPerformanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexPerformanceViewController.h; sourceTree = "<group>"; };
+		649EDCE217C8684100959F54 /* IndexPerformanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexPerformanceViewController.m; sourceTree = "<group>"; };
 		EFA7FADD17C847B900B8637E /* Matrix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Matrix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA7FAE017C847B900B8637E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EFA7FAE217C847B900B8637E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -65,6 +71,10 @@
 				649EDCD917C84A6B00959F54 /* IndexReturnChartView.h */,
 				649EDCDA17C84A6B00959F54 /* IndexReturnChartView.m */,
 				649EDCDC17C84A8900959F54 /* IndexReturnChartView.xib */,
+				649EDCDE17C8620600959F54 /* IndexPerformanceChartView.h */,
+				649EDCDF17C8620600959F54 /* IndexPerformanceChartView.m */,
+				649EDCE117C8684100959F54 /* IndexPerformanceViewController.h */,
+				649EDCE217C8684100959F54 /* IndexPerformanceViewController.m */,
 			);
 			name = IndexReturnChart;
 			sourceTree = "<group>";
@@ -196,6 +206,8 @@
 				EFA7FAFF17C847CC00B8637E /* GridViewController.m in Sources */,
 				EFA7FB0217C847D600B8637E /* MatrixViewController.m in Sources */,
 				649EDCDB17C84A6B00959F54 /* IndexReturnChartView.m in Sources */,
+				649EDCE017C8620600959F54 /* IndexPerformanceChartView.m in Sources */,
+				649EDCE317C8684100959F54 /* IndexPerformanceViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
