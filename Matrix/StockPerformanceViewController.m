@@ -27,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.view setBackgroundColor:[UIColor clearColor]];
     _performanceChart = [[StockIndexView alloc] initForStockIndex:[[StockIndex sampleData] lastObject]
                                                             frame:CGRectMake(0, 0, 320, 250)];
     [_performanceChart setStockIndex:[[StockIndex sampleData] lastObject]];
