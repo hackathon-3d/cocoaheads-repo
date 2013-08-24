@@ -130,7 +130,7 @@
     matrixViewControllerSnapshotImageView.transform = CGAffineTransformScale(matrixViewControllerSnapshotImageView.transform, .33, .33);
     [self.view addSubview: matrixViewControllerSnapshotImageView];
     
-    [UIView animateWithDuration:1.0f delay:0 options:0 animations:^{
+    [UIView animateWithDuration:0.5f delay:0 options:0 animations:^{
        
         myView.transform = tr;
         myView.center = finalGridViewCenter;
@@ -169,7 +169,7 @@
     CGAffineTransform tr = CGAffineTransformIdentity;
     CGPoint newCenter = CGPointMake(512.0, 374.0);
     myView.alpha = 1;
-    [UIView animateWithDuration:1.0f delay:0 options:0 animations:^{
+    [UIView animateWithDuration:0.5f delay:0 options:0 animations:^{
         myView.transform = tr;
         myView.center = _oldGridViewCenter;
         matrixViewControllerSnapshotImageView.alpha = 0;
