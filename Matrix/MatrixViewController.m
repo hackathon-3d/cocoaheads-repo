@@ -10,6 +10,9 @@
 
 @interface MatrixViewController () <UIScrollViewDelegate>
 
+@property (nonatomic, readwrite) NSInteger startingYear;
+@property (nonatomic, readwrite) NSInteger endingYear;
+
 @property (nonatomic, strong) UILabel *titleLabel;
 
 @property (nonatomic, strong) UIButton *backButton;
@@ -21,6 +24,12 @@
 
 @end
 
+#define Padding (2.0)
+
+#define Gutter (44.0)
+
+#define DEBUG_FRAMES (1)
+
 @implementation MatrixViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -28,6 +37,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.startingYear = 1926;
+        self.endingYear = 2013;
     }
     return self;
 }
@@ -44,8 +55,7 @@
     
     [self gridScrollView];
     
-    [self verticalYearScrollView];
-    [self horizontalYearScrollView];
+    [self setupYears];
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,6 +67,31 @@
 - (void)goBack:(id)sender
 {
     
+}
+
+#pragma mark - Years
+
+- (void)setupYears
+{
+    NSInteger difference = self.endingYear - self.startingYear;
+    
+    CGFloat height = 20.0;
+    
+    for (int i = 0; i < difference; i++) {
+        int year = self.startingYear + i;
+        UILabel *verticalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, (20.0 * i), CGRectGetWidth(self.verticalYearScrollView.bounds), height)];
+        
+        [verticalLabel setText:[NSString stringWithFormat:@"%i",year]];
+        
+        [verticalLabel setBackgroundColor:[UIColor clearColor]];
+        
+        [verticalLabel setTextColor:[UIColor whiteColor]];
+        [verticalLabel setTextAlignment:NSTextAlignmentCenter];
+        
+        [self.verticalYearScrollView addSubview:verticalLabel];
+        
+        [self.verticalYearScrollView setContentSize:CGSizeMake(CGRectGetWidth(self.verticalYearScrollView.bounds), CGRectGetMaxY(verticalLabel.frame))];
+    }
 }
 
 #pragma mark - UIScrollView Delegate
@@ -74,7 +109,7 @@
         _backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_backButton setFrame:CGRectMake(0.0, 0.0, 44.0, 44.0)];
         
-        [_backButton setBackgroundColor:[UIColor redColor]];
+        [_titleLabel setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
         
         [_backButton addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -90,7 +125,7 @@
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.bounds), 44.0)];
         [_titleLabel setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleBottomMargin];
         
-        [_titleLabel setBackgroundColor:[UIColor clearColor]];
+        [_titleLabel setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
         
         [_titleLabel setTextColor:[[UIColor whiteColor] colorWithAlphaComponent:0.5]];
         
@@ -108,10 +143,12 @@
 - (UIScrollView *)gridScrollView
 {
     if (!_gridScrollView) {
-        _gridScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(44.0, 44.0, CGRectGetWidth(self.view.bounds) - 88.0, CGRectGetHeight(self.view.bounds) - 88.0)];
+        _gridScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(Gutter + Padding, Gutter + Padding, CGRectGetWidth(self.view.bounds) - (Gutter * 2.0) - (Padding * 2.0), CGRectGetHeight(self.view.bounds) - (Gutter * 2.0) - (Padding * 2.0))];
         [_gridScrollView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
         
         [_gridScrollView setDelegate:self];
+        
+        [_gridScrollView setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
         
         [self.view addSubview:_gridScrollView];
     }
@@ -122,10 +159,12 @@
 - (UIScrollView *)verticalYearScrollView
 {
     if (!_verticalYearScrollView) {
-        _verticalYearScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, 44.0, 44.0, CGRectGetHeight(self.view.bounds) - 88.0)];
+        _verticalYearScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, Gutter + Padding, Gutter, CGRectGetHeight(self.view.bounds) - (Gutter * 2.0) - (Padding * 2.0))];
         [_verticalYearScrollView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleRightMargin];
         
         [_verticalYearScrollView setDelegate:self];
+        
+        [_verticalYearScrollView setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
         
         [self.view addSubview:_verticalYearScrollView];
     }
@@ -137,10 +176,12 @@
 - (UIScrollView *)horizontalYearScrollView
 {
     if (!_horizontalYearScrollView) {
-        _horizontalYearScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(44.0, CGRectGetHeight(self.view.bounds) - 44.0, CGRectGetWidth(self.view.bounds) - 88.0, 44.0)];
+        _horizontalYearScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(Gutter, CGRectGetHeight(self.view.bounds) - Gutter, CGRectGetWidth(self.view.bounds) - (Gutter * 2.0), Gutter)];
         [_horizontalYearScrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin];
         
         [_horizontalYearScrollView setDelegate:self];
+        
+        [_horizontalYearScrollView setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
         
         [self.view addSubview:_horizontalYearScrollView];
     }
