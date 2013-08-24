@@ -17,14 +17,18 @@
     NSMutableArray *yearlyPortfolioValue;
 }
 
+@property (nonatomic, strong) UILabel *roiLabel;
+
 @end
 
 @implementation StockPerformanceChartView
 
 - (id)initForStockIndex:(StockIndex *)stockIndex frame:(CGRect)frame {
     if ((self = [self initWithFrame:frame])){
+        chartColor = [UIColor whiteColor];
         _stockIndex = stockIndex;
         [self calculateAnnualPortfolioValue];
+        [self roiLabel];
         self.opaque = NO;
     }
     
@@ -58,7 +62,6 @@
 
 - (void)drawRect:(CGRect)rect {
     self.opaque = NO;
-    chartColor = [UIColor whiteColor];
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSaveGState(context);
@@ -79,14 +82,7 @@
                                color:chartColor.CGColor];
     }
     [self drawPointInContext:context endPoint:endPoint color:chartColor.CGColor];
-    
-    initialInvestment = 100.0;
-    NSString *roiString = [NSString stringWithFormat:@"$%.2f", [self.stockIndex portfolioForInitialValue:initialInvestment]];
-    CGContextSaveGState(context);
-    CGContextSetFillColorWithColor(context, chartColor.CGColor);
-    CGContextTranslateCTM(context, -30, endPoint.y - 70);
-    CGContextScaleCTM(context, 1.0, -1.0);
-    [roiString drawAtPoint:endPoint withFont:[UIFont boldSystemFontOfSize:14.0]];
+        
     CGContextRestoreGState(context);
 }
 
@@ -115,6 +111,23 @@
     _stockIndex = stockIndex;
     [self calculateAnnualPortfolioValue];
     [self setNeedsDisplay];
+    
+    [_roiLabel setText:[NSString stringWithFormat:@"$%.2f", [_stockIndex portfolioForInitialValue:INITIAL_INVESTMENT]]];
+}
+
+- (UILabel *)roiLabel {
+    if (!_roiLabel) {
+        _roiLabel = [[UILabel alloc] initWithFrame:CGRectMake(100.0, 30.0, 200.0, 20.0)];
+        [_roiLabel setBackgroundColor:[UIColor clearColor]];
+        
+        [_roiLabel setTextColor:chartColor];
+        
+        [_roiLabel setFont:[UIFont boldSystemFontOfSize:14.0]];
+        [_roiLabel setText:[NSString stringWithFormat:@"$%.2f", [_stockIndex portfolioForInitialValue:INITIAL_INVESTMENT]]];
+        [self addSubview:_roiLabel];
+    }
+    
+    return _roiLabel;
 }
 
 @end
