@@ -79,18 +79,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		649EDCD817C84A4700959F54 /* IndexReturnChart */ = {
+		646D506C17C891E50088E4ED /* StockIndex */ = {
 			isa = PBXGroup;
 			children = (
-				649EDCD917C84A6B00959F54 /* IndexReturnChartView.h */,
-				649EDCDA17C84A6B00959F54 /* IndexReturnChartView.m */,
-				649EDCDC17C84A8900959F54 /* IndexReturnChartView.xib */,
-				649EDCDE17C8620600959F54 /* IndexPerformanceChartView.h */,
-				649EDCDF17C8620600959F54 /* IndexPerformanceChartView.m */,
-				649EDCE117C8684100959F54 /* IndexPerformanceViewController.h */,
-				649EDCE217C8684100959F54 /* IndexPerformanceViewController.m */,
+				646D506D17C8920F0088E4ED /* StockIndex.h */,
+				646D506E17C8920F0088E4ED /* StockIndex.m */,
+				646D507017C892FA0088E4ED /* StockIndex+SampleData.h */,
+				646D507117C892FA0088E4ED /* StockIndex+SampleData.m */,
 			);
-			name = IndexReturnChart;
+			path = StockIndex;
+			sourceTree = "<group>";
+		};
+		649EDCD817C84A4700959F54 /* StockChart */ = {
+			isa = PBXGroup;
+			children = (
+				649EDCD917C84A6B00959F54 /* StockIndexView.h */,
+				649EDCDA17C84A6B00959F54 /* StockIndexView.m */,
+				64824A0217C8B5BA0066DC6B /* StockIndexView.xib */,
+				649EDCDE17C8620600959F54 /* StockPerformanceChartView.h */,
+				649EDCDF17C8620600959F54 /* StockPerformanceChartView.m */,
+				649EDCE117C8684100959F54 /* StockPerformanceViewController.h */,
+				649EDCE217C8684100959F54 /* StockPerformanceViewController.m */,
+			);
+			name = StockChart;
 			sourceTree = "<group>";
 		};
 		EFA7FAD417C847B900B8637E = {
@@ -125,7 +136,8 @@
 		EFA7FAE617C847B900B8637E /* Matrix */ = {
 			isa = PBXGroup;
 			children = (
-				649EDCD817C84A4700959F54 /* IndexReturnChart */,
+				646D506C17C891E50088E4ED /* StockIndex */,
+				649EDCD817C84A4700959F54 /* StockChart */,
 				EFA7FAEF17C847B900B8637E /* AppDelegate.h */,
 				EFA7FAF017C847B900B8637E /* AppDelegate.m */,
 				EFA7FAFD17C847CC00B8637E /* GridViewController.h */,
@@ -212,7 +224,7 @@
 				EFA7FAF317C847B900B8637E /* Default.png in Resources */,
 				EFA7FAF517C847B900B8637E /* Default@2x.png in Resources */,
 				EFA7FAF717C847B900B8637E /* Default-568h@2x.png in Resources */,
-				649EDCDD17C84A8900959F54 /* IndexReturnChartView.xib in Resources */,
+				64824A0317C8B5BA0066DC6B /* StockIndexView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

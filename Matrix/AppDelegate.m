@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "GridViewController.h"
 #import "MatrixViewController.h"
-#import "IndexPerformanceViewController.h"
+#import "StockPerformanceViewController.h"
 
 @implementation AppDelegate
 
