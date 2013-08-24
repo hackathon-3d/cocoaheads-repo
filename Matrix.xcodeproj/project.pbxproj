@@ -10,6 +10,7 @@
 		649EDCDB17C84A6B00959F54 /* IndexReturnChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 649EDCDA17C84A6B00959F54 /* IndexReturnChartView.m */; };
 		649EDCDD17C84A8900959F54 /* IndexReturnChartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 649EDCDC17C84A8900959F54 /* IndexReturnChartView.xib */; };
 		8981B59517C87790008E20BE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8981B59417C87790008E20BE /* QuartzCore.framework */; };
+		8981B59817C88885008E20BE /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8981B59717C88885008E20BE /* GridView.m */; };
 		EFA7FAE117C847B900B8637E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA7FAE017C847B900B8637E /* UIKit.framework */; };
 		EFA7FAE317C847B900B8637E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA7FAE217C847B900B8637E /* Foundation.framework */; };
 		EFA7FAE517C847B900B8637E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFA7FAE417C847B900B8637E /* CoreGraphics.framework */; };
@@ -28,6 +29,8 @@
 		649EDCDA17C84A6B00959F54 /* IndexReturnChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexReturnChartView.m; sourceTree = "<group>"; };
 		649EDCDC17C84A8900959F54 /* IndexReturnChartView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IndexReturnChartView.xib; sourceTree = "<group>"; };
 		8981B59417C87790008E20BE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		8981B59617C88885008E20BE /* GridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridView.h; sourceTree = "<group>"; };
+		8981B59717C88885008E20BE /* GridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridView.m; sourceTree = "<group>"; };
 		EFA7FADD17C847B900B8637E /* Matrix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Matrix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA7FAE017C847B900B8637E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		EFA7FAE217C847B900B8637E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -108,6 +111,8 @@
 				EFA7FAF017C847B900B8637E /* AppDelegate.m */,
 				EFA7FAFD17C847CC00B8637E /* GridViewController.h */,
 				EFA7FAFE17C847CC00B8637E /* GridViewController.m */,
+				8981B59617C88885008E20BE /* GridView.h */,
+				8981B59717C88885008E20BE /* GridView.m */,
 				EFA7FB0017C847D600B8637E /* MatrixViewController.h */,
 				EFA7FB0117C847D600B8637E /* MatrixViewController.m */,
 				EFA7FAE717C847B900B8637E /* Supporting Files */,
@@ -200,6 +205,7 @@
 				EFA7FAFF17C847CC00B8637E /* GridViewController.m in Sources */,
 				EFA7FB0217C847D600B8637E /* MatrixViewController.m in Sources */,
 				649EDCDB17C84A6B00959F54 /* IndexReturnChartView.m in Sources */,
+				8981B59817C88885008E20BE /* GridView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

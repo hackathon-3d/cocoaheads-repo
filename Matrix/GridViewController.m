@@ -7,14 +7,14 @@
 //
 
 #import "GridViewController.h"
+#import "GridView.h"
 #import "MatrixViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define SECTION_COL_TOTAL 3
-#define SECTION_ROW_TOTAL 3
+
 
 @interface GridViewController ()
-@property (strong,nonatomic) UIView *gridView;
+@property (strong,nonatomic) GridView *gridView;
 @property (nonatomic) int selectedQuadrant;
 @end
 
@@ -54,7 +54,8 @@
     float viewHeight = self.view.bounds.size.height;
     //NSLog( [NSString stringWithFormat:@"%f,%f", viewWidth, viewHeight]);
     
-    self.gridView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
+    self.gridView = [[GridView alloc] initWithFrame:CGRectMake(0, 0, viewWidth, viewHeight)];
+    [self.gridView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
     [self.gridView addSubview:imageView];
     [self.view addSubview:self.gridView];
     
@@ -71,71 +72,66 @@
     }
 }
 
+
+
+
 - (void)zoomInToSectionContainingPoint:(CGPoint)point
 {
     /*
-    self.gridView.frame = CGRectMake(0, 0, 20, 20);
-    CGPoint center = self.gridView.center;
-    [UIView animateWithDuration: 1.0f animations:^{
-        self.gridView.frame = CGRectMake(100, 100, 40, 40);
-        self.gridView.center = center;
-    }];
-    */
+     self.gridView.frame = CGRectMake(0, 0, 20, 20);
+     CGPoint center = self.gridView.center;
+     [UIView animateWithDuration: 1.0f animations:^{
+     self.gridView.frame = CGRectMake(100, 100, 40, 40);
+     self.gridView.center = center;
+     }];
+     */
     UIView *myView = self.gridView;
-    CGAffineTransform tr = CGAffineTransformScale(myView.transform, 2, 2);
+    CGAffineTransform tr = CGAffineTransformScale(myView.transform, 3, 3);
     //CGFloat h = myView.frame.size.height;
     
     //get section
-    int sectionIndex = [self getSectionIndexFromPoint:point];
-    CGPoint sectionUnitCenter = [self getSectionUnitCenter:sectionIndex];
+    int sectionIndex = [self.gridView getSectionIndexFromPoint:point];
+    CGPoint sectionUnitCenter = [self.gridView getSectionUnitCenter:sectionIndex];
+//    CGPoint newCenter = CGPointMake((myView.layer.anchorPoint.x-sectionUnitCenter.x)*self.view.frame.size.width, (myView.layer.anchorPoint.y-sectionUnitCenter.y)*self.view.frame.size.height);
+    
+    myView.layer.anchorPoint = sectionUnitCenter;
+    myView.center = CGPointMake(CGRectGetWidth(myView.frame) * myView.layer.anchorPoint.x, CGRectGetHeight(myView.frame) * myView.layer.anchorPoint.y);
+    
+    //CGPoint sectionUnitCenterOffset = CGPointMake((sectionUnitCenter.x-.5), (sectionUnitCenter.y-.5));
+    
+//    NSLog( [NSString stringWithFormat:@"zoomInToSectionContainingPoint: sectionUnitCenter x:%f y:%f",sectionUnitCenter.x,sectionUnitCenter.y]);
+//    NSLog( [NSString stringWithFormat:@"zoomInToSectionContainingPoint: self.view.frame.size w:%f h:%f", self.view.frame.size.width,self.view.frame.size.height]);
+//    NSLog( [NSString stringWithFormat:@"zoomInToSectionContainingPoint: newCenter x:%f y:%f",newCenter.x,newCenter.y]);
+   // NSLog( [NSString stringWithFormat:@"zoomInToSectionContainingPoint: sectionUnitCenterOffset x:%f y:%f",sectionUnitCenterOffset.x,sectionUnitCenterOffset.y]);
+    
+//    NSLog( [NSString stringWithFormat:@"ZoomInToPoint: [%f,%f]", sectionUnitCenter.x, sectionUnitCenter.y]);
+    //myView.layer.anchorPoint = sectionUnitCenter;
+//    myView.center = newCenter;
     
     [UIView animateWithDuration:1.0f delay:0 options:0 animations:^{
-        NSLog( [NSString stringWithFormat:@"ZoomInToPoint: [%f,%f]", sectionUnitCenter.x, sectionUnitCenter.y]);
-        myView.layer.anchorPoint = sectionUnitCenter;
-        // myView.center = CGPointMake(-sectionCenter.x, -sectionCenter.y);
+       
         myView.transform = tr;
-         
+        
         
     } completion:^(BOOL finished) {
         [self presentViewController:[[MatrixViewController alloc] init] animated:NO completion:nil];
     }];
+    
 }
 
--(int)getSectionIndexFromPoint:(CGPoint)point
-{
-    int sectionWidth = (int)self.view.bounds.size.width/SECTION_COL_TOTAL;
-    int sectionHeight = (int)self.view.bounds.size.height/SECTION_ROW_TOTAL;
-    
-    int col = (int)point.x/sectionWidth;
-    int row = (int)point.y/sectionHeight;
-    
-    int sectionIndex = row*SECTION_ROW_TOTAL+col;
-    
-    NSLog( [NSString stringWithFormat:@"getSectionIndexFromPoint: %d", sectionIndex]);
-    return sectionIndex;
-}
-
--(CGPoint)getSectionUnitCenter:(int)sectionIndex
-{
-    int col = sectionIndex%SECTION_COL_TOTAL;
-    int row = (int)sectionIndex/SECTION_ROW_TOTAL;
-    
-    float sectionUnitCenterX = (0.5+col)/SECTION_COL_TOTAL;
-    float sectionUnitCenterY = (0.5+row)/SECTION_ROW_TOTAL;
-    CGPoint point = CGPointMake(sectionUnitCenterX, sectionUnitCenterY);
-    return point;
-}
 
 - (void)zoomOutFromSelectedSection
 {
     UIView *myView = self.gridView;
-    CGAffineTransform tr = CGAffineTransformScale(myView.transform, .5, .5);
+    CGAffineTransform tr = CGAffineTransformScale(myView.transform, .33, .33);
     //CGFloat h = myView.frame.size.height;
+    CGPoint newCenter = CGPointMake(512.0, 374.0);
+     NSLog( [NSString stringWithFormat:@"zoomOutFromSectionContainingPoint: self.view.bounds.size w:%f h:%f", self.view.frame.size.width,self.view.frame.size.height]);
     [UIView animateWithDuration:1.0f delay:0 options:0 animations:^{
         myView.transform = tr;
-        myView.layer.anchorPoint = CGPointMake(0.5, 0.5);
     } completion:^(BOOL finished) {
-        
+        myView.layer.anchorPoint = CGPointMake(0.5, 0.5);
+        myView.center = newCenter;        
     }];
 }
     
