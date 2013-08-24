@@ -7,8 +7,10 @@
 //
 
 #import "MatrixViewController.h"
+#import "MatrixCollectionViewLayout.h"
+#import "LabelCollectionViewCell.h"
 
-@interface MatrixViewController () <UIScrollViewDelegate>
+@interface MatrixViewController () <UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 {
     NSMutableArray *visibleCells;
     NSMutableArray *dequeueCells;
@@ -27,9 +29,11 @@
 @property (nonatomic, strong) UIScrollView *gridScrollView;
 @property (nonatomic, strong) UIView *gridContainerView;
 
+@property (nonatomic, strong) UICollectionView *gridCollectionView;
+@property (nonatomic, strong) MatrixCollectionViewLayout *layout;
 @end
 
-#define Padding (4.0)
+#define Padding (8.0)
 
 #define Header (44.0)
 
@@ -37,6 +41,9 @@
 #define HorizontalGutter (24.0)
 
 #define ZoomMinimum (0.25)
+
+#define MinimumSize CGSizeMake(96.0, 48.0)
+#define MaximumSize CGSizeMake(256.0, 128.0)
 
 #define DEBUG_FRAMES (1)
 
@@ -47,8 +54,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.startingYear = 1950;
-        self.endingYear = 2000;
+        self.startingYear = 1926;
+        self.endingYear = 2013;
     }
     return self;
 }
@@ -65,7 +72,9 @@
     [self.titleLabel setText:@"S&P Global Index"];
     
     [self setupYears];
-    [self setupData];
+//    [self setupData];
+    
+    [self gridCollectionView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,6 +86,27 @@
 - (void)goBack:(id)sender
 {
     
+}
+
+#pragma mark - UICollectionView Datasource
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    NSInteger difference = self.endingYear - self.startingYear;
+    
+    return ((difference * difference) / 2);
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    LabelCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([LabelCollectionViewCell class]) forIndexPath:indexPath];
+    
+    [cell.label setText:@"21.12"];//[NSString stringWithFormat:@"%.02f",(arc4random_uniform(100) / 100.0)]];
+    [cell setPointSize:floorf(MinimumSize.height * 0.75)];
+    
+    [cell setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
+    
+    return cell;
 }
 
 #pragma mark - Data
@@ -268,11 +298,13 @@
         [self.horizontalYearScrollView setContentOffset:CGPointMake(scrollView.contentOffset.x, 0.0)];
     }
     else if (scrollView == self.verticalYearScrollView) {
-        [self.gridScrollView setContentOffset:CGPointMake(self.gridScrollView.contentOffset.x, self.verticalYearScrollView.contentOffset.y)];
+//        [self.gridScrollView setContentOffset:CGPointMake(self.gridScrollView.contentOffset.x, self.verticalYearScrollView.contentOffset.y)];
+        [self.gridCollectionView setContentOffset:CGPointMake(self.gridCollectionView.contentOffset.x, self.verticalYearScrollView.contentOffset.y)];
         
     }
     else if (scrollView == self.horizontalYearScrollView) {
-        [self.gridScrollView setContentOffset:CGPointMake(self.horizontalYearScrollView.contentOffset.x, self.gridScrollView.contentOffset.y)];
+//        [self.gridScrollView setContentOffset:CGPointMake(self.horizontalYearScrollView.contentOffset.x, self.gridScrollView.contentOffset.y)];
+        [self.gridCollectionView setContentOffset:CGPointMake(self.horizontalYearScrollView.contentOffset.x, self.gridCollectionView.contentOffset.y)];
     }
 }
 
@@ -340,10 +372,45 @@
         
         [_gridScrollView setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
         
-        [self.view addSubview:_gridScrollView];
+//        [self.view addSubview:_gridScrollView];
     }
     
     return _gridScrollView;
+}
+
+- (UICollectionView *)gridCollectionView
+{
+    if (!_gridCollectionView) {
+        _gridCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(VerticalGutter + Padding, Header + Padding, CGRectGetWidth(self.view.bounds) - (VerticalGutter * 2.0) - (Padding * 2.0), CGRectGetHeight(self.view.bounds) - Header - HorizontalGutter - (Padding * 2.0)) collectionViewLayout:self.layout];
+        [_gridCollectionView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
+        
+        [_gridCollectionView setDelegate:self];
+        [_gridCollectionView setDataSource:self];
+        
+//        [_gridCollectionView.panGestureRecognizer setMinimumNumberOfTouches:2];
+        
+        [_gridCollectionView setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
+        
+        [_gridCollectionView registerClass:[LabelCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([LabelCollectionViewCell class])];
+        
+        [self.view addSubview:_gridCollectionView];
+    }
+    
+    return _gridCollectionView;
+}
+
+- (MatrixCollectionViewLayout *)layout
+{
+    if (!_layout) {
+        _layout = [[MatrixCollectionViewLayout alloc] init];
+        
+        [_layout setItemSize:MinimumSize];
+        [_layout setItemSpacing:CGSizeMake(Padding, Padding)];
+        [_layout setNumberOfColumns:(self.endingYear - self.startingYear)];
+        [_layout setNumberOfRows:(self.endingYear - self.startingYear)];
+    }
+    
+    return _layout;
 }
 
 - (UIView *)gridContainerView

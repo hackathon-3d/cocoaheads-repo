@@ -22,6 +22,8 @@
 		EFA7FAF717C847B900B8637E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EFA7FAF617C847B900B8637E /* Default-568h@2x.png */; };
 		EFA7FAFF17C847CC00B8637E /* GridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA7FAFE17C847CC00B8637E /* GridViewController.m */; };
 		EFA7FB0217C847D600B8637E /* MatrixViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA7FB0117C847D600B8637E /* MatrixViewController.m */; };
+		EFA7FB0517C88AB500B8637E /* MatrixCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA7FB0417C88AB500B8637E /* MatrixCollectionViewLayout.m */; };
+		EFA7FB0817C894E600B8637E /* LabelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EFA7FB0717C894E600B8637E /* LabelCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +51,10 @@
 		EFA7FAFE17C847CC00B8637E /* GridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GridViewController.m; sourceTree = "<group>"; };
 		EFA7FB0017C847D600B8637E /* MatrixViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixViewController.h; sourceTree = "<group>"; };
 		EFA7FB0117C847D600B8637E /* MatrixViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatrixViewController.m; sourceTree = "<group>"; };
+		EFA7FB0317C88AB500B8637E /* MatrixCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatrixCollectionViewLayout.h; sourceTree = "<group>"; };
+		EFA7FB0417C88AB500B8637E /* MatrixCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatrixCollectionViewLayout.m; sourceTree = "<group>"; };
+		EFA7FB0617C894E600B8637E /* LabelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelCollectionViewCell.h; sourceTree = "<group>"; };
+		EFA7FB0717C894E600B8637E /* LabelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +122,10 @@
 				EFA7FAFE17C847CC00B8637E /* GridViewController.m */,
 				EFA7FB0017C847D600B8637E /* MatrixViewController.h */,
 				EFA7FB0117C847D600B8637E /* MatrixViewController.m */,
+				EFA7FB0617C894E600B8637E /* LabelCollectionViewCell.h */,
+				EFA7FB0717C894E600B8637E /* LabelCollectionViewCell.m */,
+				EFA7FB0317C88AB500B8637E /* MatrixCollectionViewLayout.h */,
+				EFA7FB0417C88AB500B8637E /* MatrixCollectionViewLayout.m */,
 				EFA7FAE717C847B900B8637E /* Supporting Files */,
 			);
 			path = Matrix;
@@ -208,6 +218,8 @@
 				649EDCDB17C84A6B00959F54 /* IndexReturnChartView.m in Sources */,
 				649EDCE017C8620600959F54 /* IndexPerformanceChartView.m in Sources */,
 				649EDCE317C8684100959F54 /* IndexPerformanceViewController.m in Sources */,
+				EFA7FB0517C88AB500B8637E /* MatrixCollectionViewLayout.m in Sources */,
+				EFA7FB0817C894E600B8637E /* LabelCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

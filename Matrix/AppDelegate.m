@@ -21,9 +21,9 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
-        [self.window setRootViewController:[[IndexPerformanceViewController alloc] init]];
+//        [self.window setRootViewController:[[IndexPerformanceViewController alloc] init]];
 //    [self.window setRootViewController:[[GridViewController alloc] init]];
-//    [self.window setRootViewController:[[MatrixViewController alloc] init]];
+    [self.window setRootViewController:[[MatrixViewController alloc] init]];
     
     return YES;
 }
