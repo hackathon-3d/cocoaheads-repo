@@ -11,7 +11,13 @@
 #define SECTION_COL_TOTAL 3
 #define SECTION_ROW_TOTAL 3
 
+@interface GridView() 
+@property (nonatomic, strong) NSMutableArray *chartList;
+@end
+
 @implementation GridView
+
+
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -26,10 +32,42 @@
 
 -(void)createChartGrid
 {
+    
+    int sectionWidth = (int)self.frame.size.width/SECTION_COL_TOTAL;
+    int sectionHeight = (int)self.frame.size.height/SECTION_ROW_TOTAL;
+    NSArray *colorList = @[[UIColor redColor],
+                           [UIColor greenColor],
+                           [UIColor blackColor],
+                           [UIColor blueColor],
+                           [UIColor grayColor],
+                           [UIColor yellowColor],
+                           [UIColor purpleColor],
+                           [UIColor redColor],
+                           [UIColor greenColor]];
+                           
+    self.chartList = [@[]mutableCopy];
     for (int j = 0; j < SECTION_ROW_TOTAL; j++) {
         for (int i = 0; i < SECTION_COL_TOTAL; i++) {
             //ChartView *chart = [[ChartView aloc] init];
-        
+            int index = j*SECTION_COL_TOTAL+i;
+            UIView *chart = [[UIView alloc] initWithFrame:CGRectMake(i*sectionWidth, j*sectionHeight, sectionWidth, sectionHeight)];
+            chart.backgroundColor = colorList[ index];
+            self.chartList[index] = chart;
+            [self addSubview: chart];
+        }
+    }
+}
+
+- (void)layoutSubviews
+{
+    int sectionWidth = (int)self.frame.size.width/SECTION_COL_TOTAL;
+    int sectionHeight = (int)self.frame.size.height/SECTION_ROW_TOTAL;
+    
+    for (int j = 0; j < SECTION_ROW_TOTAL; j++) {
+        for (int i = 0; i < SECTION_COL_TOTAL; i++) {
+            int index = j*SECTION_COL_TOTAL+i;
+            UIView *chart = self.chartList[index];
+            chart.frame = CGRectMake(i*sectionWidth, j*sectionHeight, sectionWidth, sectionHeight);
         }
     }
 }
