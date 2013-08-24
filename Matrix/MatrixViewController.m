@@ -26,7 +26,10 @@
 
 #define Padding (2.0)
 
-#define Gutter (44.0)
+#define Header (44.0)
+
+#define VerticalGutter (44.0)
+#define HorizontalGutter (24.0)
 
 #define DEBUG_FRAMES (1)
 
@@ -79,6 +82,7 @@
     
     for (int i = 0; i < difference; i++) {
         int year = self.startingYear + i;
+        
         UILabel *verticalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, (20.0 * i), CGRectGetWidth(self.verticalYearScrollView.bounds), height)];
         
         [verticalLabel setText:[NSString stringWithFormat:@"%i",year]];
@@ -91,6 +95,22 @@
         [self.verticalYearScrollView addSubview:verticalLabel];
         
         [self.verticalYearScrollView setContentSize:CGSizeMake(CGRectGetWidth(self.verticalYearScrollView.bounds), CGRectGetMaxY(verticalLabel.frame))];
+        
+        //
+        UILabel *horizontalLabel = [[UILabel alloc] initWithFrame:CGRectMake((40.0 * i), 0.0, CGRectGetWidth(self.verticalYearScrollView.bounds), height)];
+        
+        [horizontalLabel setText:[NSString stringWithFormat:@"%i",year]];
+        
+        [horizontalLabel setBackgroundColor:[UIColor clearColor]];
+        
+        [horizontalLabel setTextColor:[UIColor whiteColor]];
+        [horizontalLabel setTextAlignment:NSTextAlignmentCenter];
+        
+        [self.horizontalYearScrollView addSubview:horizontalLabel];
+        
+        [self.horizontalYearScrollView setContentSize:CGSizeMake(CGRectGetMaxX(horizontalLabel.frame), CGRectGetHeight(self.horizontalYearScrollView.bounds))];
+        
+        
     }
 }
 
@@ -143,7 +163,7 @@
 - (UIScrollView *)gridScrollView
 {
     if (!_gridScrollView) {
-        _gridScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(Gutter + Padding, Gutter + Padding, CGRectGetWidth(self.view.bounds) - (Gutter * 2.0) - (Padding * 2.0), CGRectGetHeight(self.view.bounds) - (Gutter * 2.0) - (Padding * 2.0))];
+        _gridScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(VerticalGutter + Padding, Header + Padding, CGRectGetWidth(self.view.bounds) - (VerticalGutter * 2.0) - (Padding * 2.0), CGRectGetHeight(self.view.bounds) - Header - HorizontalGutter - (Padding * 2.0))];
         [_gridScrollView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
         
         [_gridScrollView setDelegate:self];
@@ -159,7 +179,7 @@
 - (UIScrollView *)verticalYearScrollView
 {
     if (!_verticalYearScrollView) {
-        _verticalYearScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, Gutter + Padding, Gutter, CGRectGetHeight(self.view.bounds) - (Gutter * 2.0) - (Padding * 2.0))];
+        _verticalYearScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0.0, Header + Padding, VerticalGutter, CGRectGetHeight(self.view.bounds) - Header - HorizontalGutter - (Padding * 2.0))];
         [_verticalYearScrollView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleRightMargin];
         
         [_verticalYearScrollView setDelegate:self];
@@ -176,7 +196,7 @@
 - (UIScrollView *)horizontalYearScrollView
 {
     if (!_horizontalYearScrollView) {
-        _horizontalYearScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(Gutter, CGRectGetHeight(self.view.bounds) - Gutter, CGRectGetWidth(self.view.bounds) - (Gutter * 2.0), Gutter)];
+        _horizontalYearScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(VerticalGutter + Padding, CGRectGetHeight(self.view.bounds) - HorizontalGutter, CGRectGetWidth(self.view.bounds) - (VerticalGutter * 2.0) - (Padding * 2.0), HorizontalGutter)];
         [_horizontalYearScrollView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin];
         
         [_horizontalYearScrollView setDelegate:self];
