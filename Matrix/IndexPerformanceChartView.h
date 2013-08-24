@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+@class StockIndex;
 
 @interface IndexPerformanceChartView : UIView
+
+- (id)initForStockIndex:(StockIndex *)stockIndex frame:(CGRect)frame;
+@property (nonatomic, strong) StockIndex *stockIndex;
 
 @end
