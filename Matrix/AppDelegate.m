@@ -20,9 +20,7 @@
     self.window.backgroundColor = [UIColor blackColor];
     [self.window makeKeyAndVisible];
     
-    [self.window setRootViewController:[[StockPerformanceViewController alloc] init]];
-    
-//    [self.window setRootViewController:[[MatrixViewController alloc] init]];
+    [self.window setRootViewController:[[GridViewController alloc] init]];
     
     return YES;
 }

@@ -7,6 +7,8 @@
 //
 
 #import "GridView.h"
+#import "StockIndexView.h"
+#import "StockIndex+SampleData.h"
 
 #define SECTION_COL_TOTAL 3
 #define SECTION_ROW_TOTAL 3
@@ -25,7 +27,7 @@
     if (self) {
         // Initialization code
         // create chart grid
-        //[self createChartGrid];
+        [self createChartGrid];
     }
     return self;
 }
@@ -50,10 +52,11 @@
         for (int i = 0; i < SECTION_COL_TOTAL; i++) {
             //ChartView *chart = [[ChartView aloc] init];
             int index = j*SECTION_COL_TOTAL+i;
-            UIView *chart = [[UIView alloc] initWithFrame:CGRectMake(i*sectionWidth, j*sectionHeight, sectionWidth, sectionHeight)];
-            chart.backgroundColor = colorList[ index];
-            self.chartList[index] = chart;
-            [self addSubview: chart];
+            StockIndexView *stockView = [[StockIndexView alloc] initForStockIndex:[[StockIndex sampleData] objectAtIndex:index]
+                                                                            frame:CGRectMake(i*sectionWidth, j*sectionHeight, sectionWidth, sectionHeight)];
+            [stockView setStockIndex:[[StockIndex sampleData] objectAtIndex:index]];
+            self.chartList[index] = stockView;
+            [self addSubview: stockView];
         }
     }
 }
@@ -82,11 +85,11 @@
     
     int sectionIndex = row*SECTION_ROW_TOTAL+col;
     
-    NSLog( [NSString stringWithFormat:@"getSectionIndexFromPoint: point x:%f, y:%f", point.x, point.y]);
-
-    NSLog( [NSString stringWithFormat:@"getSectionIndexFromPoint: %d row:%d, col:%d", sectionIndex, row, col]);
-    NSLog( [NSString stringWithFormat:@"getSectionIndexFromPoint: section w:%d, h:%d", sectionWidth, sectionHeight]);
-    NSLog( [NSString stringWithFormat:@"getSectionIndexFromPoint: frame w:%f, h:%f", self.frame.size.width, self.frame.size.height]);
+//    NSLog( [NSString stringWithFormat:@"getSectionIndexFromPoint: point x:%f, y:%f", point.x, point.y]);
+//
+//    NSLog( [NSString stringWithFormat:@"getSectionIndexFromPoint: %d row:%d, col:%d", sectionIndex, row, col]);
+//    NSLog( [NSString stringWithFormat:@"getSectionIndexFromPoint: section w:%d, h:%d", sectionWidth, sectionHeight]);
+//    NSLog( [NSString stringWithFormat:@"getSectionIndexFromPoint: frame w:%f, h:%f", self.frame.size.width, self.frame.size.height]);
     return sectionIndex;
 }
 

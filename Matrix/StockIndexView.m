@@ -73,7 +73,10 @@
 }
 
 - (void)initLayout {
+    [self.layer setShouldRasterize:YES];
+    [self.layer setRasterizationScale:[UIScreen mainScreen].scale];
     self.opaque = NO;
+    [self setBackgroundColor:[UIColor whiteColor]];
     [self drawChartLines];
     [self drawChartLabels];
 }
@@ -117,14 +120,17 @@
     _endYearLabel = [[UILabel alloc] initWithFrame:CGRectMake(268, 224, 42, 21)];
     [_endYearLabel setTextAlignment:NSTextAlignmentRight];
     [_endYearLabel setFont:labelFont];
+    [_endYearLabel setTextColor:[UIColor blackColor]];
     [self addSubview:_endYearLabel];
     
     _indexTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 290, 34)];
     [_indexTitleLabel setTextAlignment:NSTextAlignmentRight];
+    [_indexTitleLabel setTextColor:[UIColor blackColor]];
     [self addSubview:_indexTitleLabel];
 
     _indexSubtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(31, 33, 279, 21)];
     [_indexSubtitleLabel setTextAlignment:NSTextAlignmentRight];
+    [_indexSubtitleLabel setTextColor:[UIColor blackColor]];
     [self addSubview:_indexSubtitleLabel];
 
     _growthLabel = [[UILabel alloc] initWithFrame:CGRectMake(210, 62, 100, 21)];
