@@ -24,14 +24,14 @@
 
 @end
 
-#define Padding (2.0)
+#define Padding (4.0)
 
 #define Header (44.0)
 
 #define VerticalGutter (44.0)
 #define HorizontalGutter (24.0)
 
-#define DEBUG_FRAMES (1)
+#define DEBUG_FRAMES (0)
 
 @implementation MatrixViewController
 
@@ -84,20 +84,22 @@
     // Top to Bottom
     for (int x = 0; x < difference; x++) {
         for (int y = 0; y < difference; y++) {
-            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake((width * x), (height * y), width, height)];
-            
-            [label setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
-            
-            [label setTextAlignment:NSTextAlignmentCenter];
-            [label setTextColor:[UIColor whiteColor]];
-            
-            [label setFont:[UIFont boldSystemFontOfSize:14.0]];
-            
-            [label setText:[NSString stringWithFormat:@"%.02f",(arc4random_uniform(100) / 100.0)]];
-            
-            [self.gridScrollView addSubview:label];
-            
-            [self.gridScrollView setContentSize:CGSizeMake(CGRectGetMaxX(label.frame), CGRectGetMaxY(label.frame))];
+            if (x <= y) {
+                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake((width * x), (height * y), width, height)];
+                
+                [label setBackgroundColor:(DEBUG_FRAMES ? [[UIColor blackColor] colorWithAlphaComponent:0.25] : [UIColor clearColor])];
+                
+                [label setTextAlignment:NSTextAlignmentCenter];
+                [label setTextColor:[UIColor whiteColor]];
+                
+                [label setFont:[UIFont boldSystemFontOfSize:14.0]];
+                
+                [label setText:[NSString stringWithFormat:@"%.02f",(arc4random_uniform(100) / 100.0)]];
+                
+                [self.gridScrollView addSubview:label];
+                
+                [self.gridScrollView setContentSize:CGSizeMake(CGRectGetMaxX(label.frame), CGRectGetMaxY(label.frame))];
+            }
         }
     }
 
